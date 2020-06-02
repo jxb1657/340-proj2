@@ -81,7 +81,44 @@
 				$('#content').append('<h4>'+ item.description + '</h4>');
 			});
 		});
+
+		//get faculty
+		xhr('get', {path: '/people/'}, '#people').done(function(json){
+			//just put out faculty...[staff would be inside of her as well, your problem!]
+			var x = '';
+			$.each(json.faculty,function(){//go through each person in faculty
+				//build up a big string to place on page
+				//note the class = "faculty" - how we will put an onclick on them all
+				//note the data-uname, how we can access all of the data later on!
+					//username is a unique identifier!
+				x += '<div class="faculty" data-uname = "'+this.username+'" data-type = faculty"><h5>'+this.name+
+				'</h5><img style ="max-width: 150px" src="'+this.imagePath+'"/></div>';
+			})
+			$('#people').append(x);
+			$('.faculty').on('click',function(){
+				//HUGE note - since this is assigned within the callback from the AJAX call
+					//another way to think of it is from here, the code can 'see' the json variable
+				//and when I later click on one of div's with a class of faculty
+				//I can access the entire json object!
+
+				//while that is awesome, I still need to find out within all that data, which one am I?
+				//see: ******
+				var me = getAttributesByName(json.faculty,'username', $(this).attr('data-uname'));
+				console.log(me);
+			});
+		});
 	});
+
+	//************this function helps to find out which one I am!!!
+	function getAttributesByName(arr, name, val){
+		var result = null;
+		$.each(arr,function(){
+			if(this[name] === val){
+				result = this;
+			}
+		});
+		return result;
+	}
 </script>
 </head>
 <body>
