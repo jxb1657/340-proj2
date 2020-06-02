@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>340 p2 ex</title>
+<script src="https://code.jquery.com/jquery-latest.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+	//now what?
+	//api:  http://www.ist.rit.edu/api/
+	
+	$(document).ready(function(){
+		//create a simple ajax call that will essentially
+		//GET the "About" information from the API and use a 
+		//proxy to to send in the data of path = /about/
+		$.ajax({
+			type:'get',
+			url:'proxy.php',
+			data:{path:"/about/"},
+			dataType:'json'
+		}).done(function(json){
+			console.log(json.title);
+		});
+		
+		//ajax call for undergraduate 
+		$.ajax({
+			//set the properties of the AJAX call
+			type: 'get', //get or post, we want a get
+			async: true, //do we want this to be a blocking or not (Non-blocking)
+			cache: false, //we do NOT want to use a cached version (if there was one)
+			url: 'proxy.php', //still (always for this assignment) hit the proxy.php
+			data:{path:'/degrees/undergraduate/'}, //want more specific information
+			dataType: 'json' //want it to come back as JSON
+		}).done(function(json){
+			/*
+			inside of here is when we have made the return trip, this is the callback the argument 'json' above
+			is holding the returned value from the API since the json.undergraduate is an array (square brackets!),
+			we can use jQuery's each iterator and put it on the page!
+			*/
+			$.each(json.undergraduate,function(i, item){
+				/*
+				i - counter, item - reference to this pass through the data
+				next 2 lines showing the use of either this or item (they are interchangeable)
+				*/
+				$('#content').append('<h2>'+ this.title +"</h2>");
+				$('#content').append('<h4>'+ item.description + '</h4>');
+			});
+		});
+	});
+</script>
+</head>
+<body>
+  <h2>IST Dept Site</h2>
+	<div id="content" style="height:200px"></div>
+	
+	<div id="people"></div>
+
+</body>
+</html>
