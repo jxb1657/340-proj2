@@ -19,7 +19,7 @@
 	*/
 	function xhr(getPost, d, idForSpinner){
 		return $.ajax({
-			type: getPOst,
+			type: getPost,
 			dataType: 'json',
 			data: d,
 			cache: false,
@@ -91,7 +91,8 @@
 				//note the class = "faculty" - how we will put an onclick on them all
 				//note the data-uname, how we can access all of the data later on!
 					//username is a unique identifier!
-				x += '<div class="faculty" data-uname = "'+this.username+'" data-type = faculty"><h5>'+this.name+
+				x += '<div class="faculty" data-uname = "'+this.username+
+				'" data-type = faculty"><h5>'+this.name+
 				'</h5><img style ="max-width: 150px" src="'+this.imagePath+'"/></div>';
 			})
 			$('#people').append(x);
