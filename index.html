@@ -6,6 +6,41 @@
 <script src="https://code.jquery.com/jquery-latest.js" type="text/javascript">
 </script>
 <script type="text/javascript">
+	///////////////////////////////Utilities///////////////////////////////
+	/*
+	ajax utils
+		arguments:
+		getPOst - get or post
+		d = {path: '/about/'}
+		idForSpinner - #parent (optional)
+			the id of the conatiner I want the spinner to go into
+
+			use: xhr('get', {path:'/about/''}, '#id').done(function(){//code});
+	*/
+	function xhr(getPost, d, idForSpinner){
+		return $.ajax({
+			type: getPOst,
+			dataType: 'json',
+			data: d,
+			cache: false,
+			async: true,
+			url: 'proxy.php',
+			beforeSend: function(){
+			//This is new. This event fires befroe the callback is sent.
+			//turn on spinnder IF the argument was sent in
+				$(idForSpinner).append('<img src="assets/media/gears.gif" class="spin"/>');
+			}
+		}).always(function(){//always will fire...
+			//remove spinner  - fade out then kill itself
+		   $(idForSpinner).find('.spin').fadeOut(500,function(){
+			   $(this).remove();
+		   });
+		}).fail(function(err){//if an error, we should know!
+			console.log("there was an AJAX error");
+			console.log(err);
+		});
+	}
+
 	//now what?
 	//api:  http://www.ist.rit.edu/api/
 	
