@@ -107,14 +107,14 @@
 		xhr('get', {path: '/degrees/undergraduate'}, '#undergraduate').done(function(json){
 			//just put out faculty...[staff would be inside of her as well, your problem!]
 			var y = '';
-			$.each(json.faculty,function(){//go through each person in faculty
+			$.each(json.undergraduate,function(i, item){//go through each person in faculty
 				//build up a big string to place on page
 				//note the class = "faculty" - how we will put an onclick on them all
 				//note the data-uname, how we can access all of the data later on!
 					//username is a unique identifier!
 				y += '<div class="undergraduate" degree-name = "'+this.degreeName+
-				'" data-type = undergraduate"><h5>'+this.title+'</br>'+this.description+
-				'</h5></div>';
+				'" data-type = undergraduate"><h5>'+this.title+'</br>'+item.description+
+				'</h5><P>'+ item.concentrations +'</p></div>';
 			})
 			$('#undergraduate').append(y);
 
