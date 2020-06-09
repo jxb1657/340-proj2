@@ -103,14 +103,15 @@
 
 		});
 
-		xhr('get', {path: '/degrees/'}, '#degrees').done(function(json){
+		xhr('get', {path: '/degrees/undergraduate/'}, '#ugrad').done(function(json){
 			//print out all information for degrees
 			var y = '';
 			$.each(json.undergraduate, function(){
-				y += '<div class ="degree" data-uname = "'+this.title+'"data-type = degree"><h5>'+this.title+'</br>'+this.description+
-				'<h/5><p style = "max-width: 150px">'+this.concentration+'+</p>';
+				y += '<div class="undergraduate" degree-name = "'+this.degreeName+'"data-type = undergraduate"><h5>'+this.title+'</br>'+this.description+
+				'</h5><p>'+this.concentration+'+</p>';
 			})
-			$('#degrees').append(x);
+			$('#ugrad').append(y);
+			
 		});
 	});
 
