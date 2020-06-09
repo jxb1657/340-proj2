@@ -78,7 +78,6 @@
 		xhr('get', {path: '/people/'}, '#people').done(function(json){
 			//just put out faculty...[staff would be inside of her as well, your problem!]
 			var x = '';
-			var y = '';
 			$.each(json.faculty,function(){//go through each person in faculty
 				//build up a big string to place on page
 				//note the class = "faculty" - how we will put an onclick on them all
@@ -101,6 +100,17 @@
 				var me = getAttributesByName(json.faculty,'username', $(this).attr('data-uname'));
 				console.log(me);
 			});
+
+		});
+
+		xhr('get', {path: '/degrees/'}, '#degrees').done(function(json){
+			//print out all information for degrees
+			var y = '';
+			$.each(json.undergraduate, function(){
+				y += '<div class ="degree" data-uname = "'+this.title+'"data-type = degree"><h5>'+this.title+'</br>'+this.description+
+				'<h/5><p style = "max-width: 150px">'+this.concentration+'+</p>';
+			})
+			$('#degrees').append(x);
 		});
 	});
 
