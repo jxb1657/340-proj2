@@ -103,15 +103,44 @@
 
 		});
 
-		xhr('get', {path: '/degrees/undergraduate/'}, '#ugrad').done(function(json){
-			$.each(json.undergraduate,function(i, item){
-				//print out all information for undergraduate degrees
-				$('#ugrad').append('<h2>'+ this.degreeName +"</h2>");
-				$('#ugrad').append('<h2>'+ this.title +"</h2>");
-				$('#ugrad').append('<h4>'+ item.description + '</h4>');
-				$('#ugrad').append('<h4>'+ item.contentrations[i] + '</h4>');
+		//get undergraduate
+		xhr('get', {path: '/degrees/'}, '#undergraduate').done(function(json){
+			//just put out faculty...[staff would be inside of her as well, your problem!]
+			var y = '';
+			$.each(json.faculty,function(){//go through each person in faculty
+				//build up a big string to place on page
+				//note the class = "faculty" - how we will put an onclick on them all
+				//note the data-uname, how we can access all of the data later on!
+					//username is a unique identifier!
+				x += '<div class="undergraduate" degree-name = "'+this.degreeName+
+				'" data-type = undergraduate"><h5>'+this.title+'</br>'+this.description+
+				'</h5></div>';
+			})
+			$('#undergraduate').append(y);
+
+			$('.undergraduate').on('click',function(){
+				//HUGE note - since this is assigned within the callback from the AJAX call
+					//another way to think of it is from here, the code can 'see' the json variable
+				//and when I later click on one of div's with a class of faculty
+				//I can access the entire json object!
+
+				//while that is awesome, I still need to find out within all that data, which one am I?
+				//see: ******
+				var me = getAttributesByName(json.undergraduate,'degreeName', $(this).attr('degree-name'));
+				console.log(me);
 			});
+
 		});
+
+		// xhr('get', {path: '/degrees/undergraduate/'}, '#ugrad').done(function(json){
+		// 	$.each(json.undergraduate,function(i, item){
+		// 		//print out all information for undergraduate degrees
+		// 		$('#ugrad').append('<h2>'+ this.degreeName +"</h2>");
+		// 		$('#ugrad').append('<h2>'+ this.title +"</h2>");
+		// 		$('#ugrad').append('<h4>'+ item.description + '</h4>');
+		// 		$('#ugrad').append('<h4>'+ item.contentrations[i] + '</h4>');
+		// 	});
+		// });
 	});
 
 	//************this function helps to find out which one I am!!!
