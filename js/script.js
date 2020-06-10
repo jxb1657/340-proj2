@@ -104,7 +104,7 @@
 		});
 		
 		//get graduate
-		xhr('get', {path: '/degrees/gradute'}, '#graduate').done(function(json){
+		xhr('get', {path: '/degrees/graduate'}, '#graduate').done(function(json){
 			var z ='';
 			$.each(json.graduate, function(i, item){
 				z += '<div class = "graduate" degree-name ="'+ this.degreeName + 
