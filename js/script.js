@@ -114,7 +114,7 @@
 
 			$('#graduate').append(z);
 			
-		}
+		});
 		
 
 		//get undergraduate
