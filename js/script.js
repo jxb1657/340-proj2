@@ -109,7 +109,7 @@
 			$.each(json.graduate, function(i, item){
 				z += '<div class = "graduate" degree-name ="'+ this.degreeName + 
 				'" data-type = graduate"><h5>' +this.title+'</br>' +  item.description +
-				'</h5><p>' + item.concentrations + '</p></div>';
+				'</h5><p>' + item.concentrations + '</p><p>'+ this.availableCertificate+'</p></div>';
 			})
 
 			$('#graduate').append(z);
