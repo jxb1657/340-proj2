@@ -102,6 +102,20 @@
 			});
 
 		});
+		
+		//get graduate
+		xhr('get', {path: '/degrees/gradute'}, '#graduate').done(function(json){
+			var z ='';
+			$.each(json.graduate, function(i, item){
+				z += '<div class = "graduate" degree-name ="'+ this.degreeName + 
+				'" data-type = graduate"><h5>' +this.title+'</br>' +  item.description +
+				'</h5><p>' + item.concentrations + '</p></div>';
+			})
+
+			$('#graduate').append(z);
+			
+		}
+		
 
 		//get undergraduate
 		xhr('get', {path: '/degrees/undergraduate'}, '#undergraduate').done(function(json){
