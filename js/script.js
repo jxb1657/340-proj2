@@ -106,20 +106,23 @@
 		//get graduate
 		xhr('get', {path: '/degrees/graduate'}, '#graduate').done(function(json){
 			var z ='';
-				$.each(json.graduate, function(i, item){
-					if(this.availableCertificates = "undefined" || this.availableCertificates == null){
-						z += '<div class = "graduate" degree-name ="'+ this.degreeName + 
-						'" data-type = graduate"><h5>' +this.title+'</br>' +  item.description +
-						'</h5><p>' + item.concentrations + '</p></div>';
-					}
-					else{
-						z += '<div class = "graduate" degree-name ="'+ this.degreeName + 
-						'" data-type = graduate"><h5>' + this.title+'</br>' +
-						'<p>' +this.availableCertificates +'</p></div>';
-					}
-				})
+			$.each(json.graduate, function(i, item){
+				z += '<div class = "graduate" degree-name ="'+ this.degreeName + 
+				'" data-type = graduate"><h5>' +this.title+'</br>' +  item.description +
+					'</h5><p>' + item.concentrations + '</p></div>';
+			});
 			$('#graduate').append(z);
-			
+		});
+
+		//get graduate advanced certificate
+		xhr('get', {path: '/degrees/graduate/degreeName=graduate advanced certificates'}, '#graduate').done(function(json){
+			var gac = '';
+			$.each(json.graduate, function(i,item){
+				gac += '<div class = "graduate" degree-name ="'+ this.degreeName + 
+				'" data-type = graduate"><h5>' + this.title+'</br>' +
+				'<p>' +this.availableCertificates +'</p></div>';
+			});
+			$('#graduate').append(gac);
 		});
 		
 
