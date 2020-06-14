@@ -107,23 +107,36 @@
 		xhr('get', {path: '/degrees/graduate'}, '#graduate').done(function(json){
 			var z ='';
 			$.each(json.graduate, function(i, item){
-				z += '<div class = "graduate" degree-name ="'+ this.degreeName + 
-				'" data-type = graduate"><h5>' +this.title+'</br>' +  item.description +
-					'</h5><p>' + item.concentrations + '</p></div>';
+				if(availableCertificates === undefined || availableCertificates.length == 0){
+					z += '<div class = "graduate" degree-name ="'+ this.degreeName + 
+					'" data-type = graduate"><h5>' +this.title+'</br>' +  item.description +
+					'</h5><p>' + item.concentrations + '</p></br>'+
+					'<p>' +item.availableCertificates +'</p></div>';
+				}
+				else{
+					z += '<div class = "gac" degree-name ="'+ this.degreeName + 
+					'" data-type = graduate"></br>' +
+					'<h6>' +item.availableCertificates +'</h6></div>';
+				}
 			});
 			$('#graduate').append(z);
+
+			$('.graduate').on('click',function(){
+				var me = getAttributesByName(json.graduate,'degreeName', $(this).attr('degree-name'));
+				console.log(me);
+			});
 		});
 
 		//get graduate advanced certificate
-		xhr('get', {path: '/degrees/graduate/degreeName=graduate advanced certificates'}, '#graduate').done(function(json){
-			var gac = '';
-			$.each(json.graduate, function(i,item){
-				gac += '<div class = "graduate" degree-name ="'+ this.degreeName + 
-				'" data-type = graduate"><h5>' + this.title+'</br>' +
-				'<p>' +this.availableCertificates +'</p></div>';
-			});
-			$('#graduate').append(gac);
-		});
+		// xhr('get', {path: '/degrees/graduate/degreeName=graduate advanced certificates'}, '#gac').done(function(json){
+		// 	var gac = '';
+		// 	$.each(json.graduate, function(i,item){
+		// 		gac += '<div class = "gac" degree-name ="'+ this.degreeName + 
+		// 		'" data-type = graduate"></br>' +
+		// 		'<h6>' +item.availableCertificates +'</h6></div>';
+		// 	});
+		// 	$('#gac').append(gac);
+		// });
 		
 
 		//get undergraduate
