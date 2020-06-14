@@ -73,45 +73,15 @@
 				$('#content').append('<h4>'+ item.description + '</h4>');
 			});
 		});
-
-		//get faculty
-		xhr('get', {path: '/people/'}, '#people').done(function(json){
-			//just put out faculty...[staff would be inside of her as well, your problem!]
-			var x = '';
-			$.each(json.faculty,function(){//go through each person in faculty
-				//build up a big string to place on page
-				//note the class = "faculty" - how we will put an onclick on them all
-				//note the data-uname, how we can access all of the data later on!
-					//username is a unique identifier!
-				x += '<div class="faculty" data-uname = "'+this.username+
-				'" data-type = faculty"><h5>'+this.office+'</br>'+this.name+
-				'</h5><img style ="max-width: 150px" src="'+this.imagePath+'"/></div>';
-			})
-			$('#people').append(x);
-
-			$('.faculty').on('click',function(){
-				//HUGE note - since this is assigned within the callback from the AJAX call
-					//another way to think of it is from here, the code can 'see' the json variable
-				//and when I later click on one of div's with a class of faculty
-				//I can access the entire json object!
-
-				//while that is awesome, I still need to find out within all that data, which one am I?
-				//see: ******
-				var me = getAttributesByName(json.faculty,'username', $(this).attr('data-uname'));
-				console.log(me);
-			});
-
-		});
 		
 		//get graduate
 		xhr('get', {path: '/degrees/graduate'}, '#graduate').done(function(json){
 			var z ='';
 			$.each(json.graduate, function(i, item){
-				if(availableCertificates === undefined || availableCertificates.length == 0){
+				if(item.availableCertificates === undefined || item.availableCertificates.length == 0){
 					z += '<div class = "graduate" degree-name ="'+ this.degreeName + 
 					'" data-type = graduate"><h5>' +this.title+'</br>' +  item.description +
-					'</h5><p>' + item.concentrations + '</p></br>'+
-					'<p>' +item.availableCertificates +'</p></div>';
+					'</h5><p>' + item.concentrations + '</p></div>';
 				}
 				else{
 					z += '<div class = "gac" degree-name ="'+ this.degreeName + 
@@ -126,17 +96,6 @@
 				console.log(me);
 			});
 		});
-
-		//get graduate advanced certificate
-		// xhr('get', {path: '/degrees/graduate/degreeName=graduate advanced certificates'}, '#gac').done(function(json){
-		// 	var gac = '';
-		// 	$.each(json.graduate, function(i,item){
-		// 		gac += '<div class = "gac" degree-name ="'+ this.degreeName + 
-		// 		'" data-type = graduate"></br>' +
-		// 		'<h6>' +item.availableCertificates +'</h6></div>';
-		// 	});
-		// 	$('#gac').append(gac);
-		// });
 		
 
 		//get undergraduate
@@ -165,18 +124,49 @@
 				var me = getAttributesByName(json.undergraduate,'degreeName', $(this).attr('degree-name'));
 				console.log(me);
 			});
-
 		});
 
-		// xhr('get', {path: '/degrees/undergraduate/'}, '#ugrad').done(function(json){
-		// 	$.each(json.undergraduate,function(i, item){
-		// 		//print out all information for undergraduate degrees
-		// 		$('#ugrad').append('<h2>'+ this.degreeName +"</h2>");
-		// 		$('#ugrad').append('<h2>'+ this.title +"</h2>");
-		// 		$('#ugrad').append('<h4>'+ item.description + '</h4>');
-		// 		$('#ugrad').append('<h4>'+ item.contentrations[i] + '</h4>');
-		// 	});
-		// });
+		//get minors
+		xhr('get', {path: '/minors/'}, '#minors').done(function(json){
+			var minors1 = '';
+			var minors2 = '';
+			$.each(json.UgMinors, function(i, item){
+				minors1 += '<div class = "minorFirst" <h3>'+this.title+'</h3></div>';
+				minors2 += '<div class = "minorSecond" <h3>'+this.title+'</h3><h6>'+
+				this.name+'</h6><p>'+this.description+'</p><div>'+item.courses+'</div><p>'+
+				this.note+'</p></div>';
+			})
+			$('#minors').append(minors1);
+		})
+
+		//get faculty
+		xhr('get', {path: '/people/'}, '#people').done(function(json){
+			//just put out faculty...[staff would be inside of her as well, your problem!]
+			var x = '';
+			$.each(json.faculty,function(){//go through each person in faculty
+				//build up a big string to place on page
+				//note the class = "faculty" - how we will put an onclick on them all
+				//note the data-uname, how we can access all of the data later on!
+					//username is a unique identifier!
+				x += '<div class="faculty" data-uname = "'+this.username+
+				'" data-type = faculty"><h5>'+this.office+'</br>'+this.name+
+				'</h5><img style ="max-width: 150px" src="'+this.imagePath+'"/></div>';
+			})
+			$('#people').append(x);
+
+			$('.faculty').on('click',function(){
+				//HUGE note - since this is assigned within the callback from the AJAX call
+					//another way to think of it is from here, the code can 'see' the json variable
+				//and when I later click on one of div's with a class of faculty
+				//I can access the entire json object!
+
+				//while that is awesome, I still need to find out within all that data, which one am I?
+				//see: ******
+				var me = getAttributesByName(json.faculty,'username', $(this).attr('data-uname'));
+				console.log(me);
+			});
+		});
+
 	});
 
 	//************this function helps to find out which one I am!!!
