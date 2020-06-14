@@ -74,6 +74,7 @@
 			});
 		});
 		
+//========================================================================================================		
 		//get graduate
 		xhr('get', {path: '/degrees/graduate'}, '#graduate').done(function(json){
 			var z ='';
@@ -97,7 +98,7 @@
 			});
 		});
 		
-
+//========================================================================================================
 		//get undergraduate
 		xhr('get', {path: '/degrees/undergraduate'}, '#undergraduate').done(function(json){
 			//just put out faculty...[staff would be inside of her as well, your problem!]
@@ -126,12 +127,15 @@
 			});
 		});
 
+//========================================================================================================
 		//get minors
 		xhr('get', {path: '/minors/'}, '#minors').done(function(json){
 			var minors1 = '';
 			var minors2 = '';
 			$.each(json.UgMinors, function(i, item){
+				//get the title screen for the minors
 				minors1 += '<div class = "minorFirst" <h3>'+this.title+'</h3></div>';
+				//get the info screen for the appropriate minor click.
 				minors2 += '<div class = "minorSecond" <h3>'+this.title+'</h3><h6>'+
 				this.name+'</h6><p>'+this.description+'</p><div>'+item.courses+'</div><p>'+
 				this.note+'</p></div>';
@@ -139,6 +143,39 @@
 			$('#minors').append(minors1);
 		})
 
+//========================================================================================================
+		//get employment
+		xhr('get', {path: '/employment/'}, '#employment').done(function(json){
+			var empIntro = '';
+			var empStat = '';
+			var empEmployers = '';
+			var empCareers = '';
+			var coopTable = '';
+
+			//get introduction
+			$.each(json.introduction, function(i, item){
+				empIntro += '<div class = "intro" <h3>'+this.title+'</h3></div>';
+
+			})
+			$('#employment').append(empIntro);
+			
+			//get degreeStatistics
+			$.each(json.degreeStatistics, function(i, item){
+				empStat += '<div class = "stats" <h3>'+this.title+'</h3><h6>'+
+				this.name+'</h6><p>'+this.description+'</p><div>'+item.courses+'</div><p>'+
+				this.note+'</p></div>';
+			})
+			$('#employment').append(empStat);
+
+			//get employers
+
+			//get careers
+
+			//get coopTable
+				//put this inside the datatable API 
+		})
+
+//========================================================================================================
 		//get faculty
 		xhr('get', {path: '/people/'}, '#people').done(function(json){
 			//just put out faculty...[staff would be inside of her as well, your problem!]
