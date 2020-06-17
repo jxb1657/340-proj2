@@ -140,7 +140,8 @@
 				this.name+'</h6><p>'+this.description+'</p><div>'+item.courses+'</div><p>'+
 				this.note+'</p></div>';
 			})
-			$('#minors').append(minors1);
+			$('.minorFirst').append(minors1);
+			$('.minorSecond').append(minors2);
 		})
 
 //========================================================================================================
@@ -154,30 +155,36 @@
 
 			//get introduction 
 			$.each(json.introduction, function(i, item){
-				empIntro += '<div class = "intro" <h3>'+this.title+'</h3></br><p>'+item.content+'</p></div>';
-
+				empIntro += '<div class = "intro" <h3>'+this.title+'</h3><p>'+ item.content +'</p></div>';
 			})
-			$('#employment').append(empIntro);
+
+			$('.intro').append(empIntro);
+
+			// $.each(json.introduction, function(i, item){
+			// 	empIntro += '<div class = "intro" <h3>'+this.title+'</h3></br><p>'+item.content+'</p><p>'+item.content+'</p></div>';
+
+			// })
+			// $('.intro').append(empIntro);
+
+			// //get careers
+			// $.each(json.careers, function(i, item){
+			// 	empCareers += '';
+			// })
+			// $('#employment').append(empCareers);
 						
-			//get degreeStatistics
-			$.each(json.degreeStatistics, function(i, item){
-				empStat += '<div class = "stats" <h3>'+this.title+'</h3><h6>'+
-				this.name+'</h6></br><p>'+this.description+'</p><div>'+item.courses+'</div><p>'+
-				this.note+'</p></div>';
-			})
-			$('#employment').append(empStat);
-
-			//get employers
-			$.each(json.employers, function(i, item){
-				empEmployers += '';
-			})
-			$('#employment').append(empEmployers);
-
-			//get careers
-			$.each(json.careers, function(i, item){
-				empCareers += '';
-			})
-			$('#employment').append(empCareers);
+			// //get employers
+			// $.each(json.employers, function(i, item){
+			// 	empEmployers += '';
+			// })
+			// $('#employment').append(empEmployers);
+			
+			// //get degreeStatistics
+			// $.each(json.degreeStatistics, function(i, item){
+			// 	empStat += '<div class = "stats" <h3>'+this.title+'</h3><h6>'+
+			// 	this.name+'</h6></br><p>'+this.description+'</p><div>'+item.courses+'</div><p>'+
+			// 	this.note+'</p></div>';
+			// })
+			// $('#employment').append(empStat);
 
 			//get coopTable
 				//put this inside the datatable API 
