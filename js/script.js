@@ -146,6 +146,7 @@
 
 //========================================================================================================
 		//get employment
+
 		xhr('get', {path: '/employment/'}, '#employment').done(function(json){
 			var empIntro = '';
 			var empStat = '';
@@ -154,37 +155,35 @@
 			var coopTable = '';
 
 			//get introduction 
-			$.each(json.introduction, function(i, item){
-				empIntro += '<div class = "intro" <h3>'+this.title+'</h3><p>'+ item.content +'</p></div>';
-			})
 
+			$.each(json.introduction, function(){
+				empIntro = '<div class = "intro"><h3>'+ json.introduction.title +'</h3><h2>'+this[0].title + '</h2></br><p>' +this[0].description +'</p></br><h2>' + this[1].title + '</h2></br><p>' + this[1].description + '</p></div>';
+			})
 			$('.intro').append(empIntro);
 
-			// $.each(json.introduction, function(i, item){
-			// 	empIntro += '<div class = "intro" <h3>'+this.title+'</h3></br><p>'+item.content+'</p><p>'+item.content+'</p></div>';
-
-			// })
-			// $('.intro').append(empIntro);
-
-			// //get careers
-			// $.each(json.careers, function(i, item){
-			// 	empCareers += '';
-			// })
-			// $('#employment').append(empCareers);
+			//get careers
+			$.each(json.careers.careerNames, function(i, item){
+				empCareerTitle = '<h3>'+json.careers.title+'</h3>';
+				empCareers += '<div><ul><li>'+ json.careers.careerNames[i] + '</li></ul></div>';
+			})
+			$('.career').append(empCareerTitle);
+			$('.career').append(empCareers);
 						
-			// //get employers
-			// $.each(json.employers, function(i, item){
-			// 	empEmployers += '';
-			// })
-			// $('#employment').append(empEmployers);
+			//get employers
+			$.each(json.employers.employerNames, function(i, item){
+				empEmployerTitle = '<h3>'+json.employers.title+'</h3>';
+				empEmployers += '<div><ul><li>'+ json.employers.employerNames[i] + '</li></ul></div>';
+			})
+			$('.career').append(empEmployerTitle);
+			$('.career').append(empEmployers);
 			
-			// //get degreeStatistics
-			// $.each(json.degreeStatistics, function(i, item){
-			// 	empStat += '<div class = "stats" <h3>'+this.title+'</h3><h6>'+
-			// 	this.name+'</h6></br><p>'+this.description+'</p><div>'+item.courses+'</div><p>'+
-			// 	this.note+'</p></div>';
-			// })
-			// $('#employment').append(empStat);
+			//get degreeStatistics
+			$.each(json.degreeStatistics, function(i, item){
+				empStat += '<div class = "stats" <h3>'+this.title+'</h3><h6>'+
+				this.name+'</h6></br><p>'+this.description+'</p><div>'+item.courses+'</div><p>'+
+				this.note+'</p></div>';
+			})
+			$('.stats').append(empStat);
 
 			//get coopTable
 				//put this inside the datatable API 
