@@ -152,7 +152,7 @@
 			var empStat = '';
 			var empEmployers = '';
 			var empCareers = '';
-			var coopTable = '';
+			var empCoop = '';
 
 			//get introduction 
 
@@ -178,15 +178,20 @@
 			$('.career').append(empEmployers);
 			
 			//get degreeStatistics
-			$.each(json.degreeStatistics, function(i, item){
-				empStat += '<div class = "stats" <h3>'+this.title+'</h3><h6>'+
-				this.name+'</h6></br><p>'+this.description+'</p><div>'+item.courses+'</div><p>'+
-				this.note+'</p></div>';
+			$.each(json.degreeStatistics.statistics, function(i, item){
+				empStat += '<div class = "stats"<div>'+
+				json.degreeStatistics.statistics[i].value+ json.degreeStatistics.statistics[i].description + '</div></div>';
 			})
-			$('.stats').append(empStat);
+			$('.stats').append('<h3>'+json.degreeStatistics.title+'</h3></br>' + empStat);
 
 			//get coopTable
-				//put this inside the datatable API 
+			$.each(json.coopTable.coopInformation, function(i, item){
+				empCoop += '<div class = "coopTable"<div><table id="table_id" class="display"><thead><tr><th>'+
+				json.coopTable[i]+ '</th></tr></thead><tbody><tr><td>' + json.coopTable.coopInformation[i].employer + '</td><td>' +
+				json.coopTable.coopInformation[i].degree+'</td><td>'+ json.coopTable.coopInformation[i].city +'</td><td>'+ 
+				json.coopTable.coopInformation[i].term +'</td></tr></tbody></table></div></div>';
+			})
+			$('.coopTable').append('<h3>'+json.coopTable.title+'</h3></br>' + empCoop);
 		})
 
 //========================================================================================================
