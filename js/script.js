@@ -152,7 +152,10 @@
 			var empStat = '';
 			var empEmployers = '';
 			var empCareers = '';
-			var empCoop = '';
+			var empCoopHead = '';
+			var empCoopBody ='';
+			var empEmpHead ='';
+			var empEmpBody = '';
 
 			//get introduction 
 
@@ -185,13 +188,33 @@
 			$('.stats').append('<h3>'+json.degreeStatistics.title+'</h3></br>' + empStat);
 
 			//get coopTable
-			$.each(json.coopTable.coopInformation, function(i, item){
-				empCoop += '<div class = "coopTable"<div><table id="table_id" class="display"><thead><tr><th>'+
-				json.coopTable[i]+ '</th></tr></thead><tbody><tr><td>' + json.coopTable.coopInformation[i].employer + '</td><td>' +
-				json.coopTable.coopInformation[i].degree+'</td><td>'+ json.coopTable.coopInformation[i].city +'</td><td>'+ 
-				json.coopTable.coopInformation[i].term +'</td></tr></tbody></table></div></div>';
+			//get headers
+			//var headerName = Object.keys(json.coopTable);
+			$.each(json.coopTable.coopInformation[0], function(i, item){
+				empCoopHead += '<th>'+ i +'</th>';
 			})
-			$('.coopTable').append('<h3>'+json.coopTable.title+'</h3></br>' + empCoop);
+
+			//get body
+			$.each(json.coopTable.coopInformation, function(i, item){
+				empCoopBody += '<tr><td>' + json.coopTable.coopInformation[i].employer + '</td><td>' +
+				json.coopTable.coopInformation[i].degree+'</td><td>'+ json.coopTable.coopInformation[i].city +'</td><td>'+ 
+				json.coopTable.coopInformation[i].term +'</td></tr>';
+			})
+			$('.coopTable').append('<div class = "coopTable"><div><table id="table_id1" class="display"><h3>'+json.coopTable.title+'</h3></br><thead><tr>' + empCoopHead +'</tr></thead><tbody>'+ empCoopBody + '</tbody></table></div></div>');
+
+			//get employmentTabel
+			//get headers
+			$.each(json.employmentTable.professionalEmploymentInformation[0], function(i, item){
+				empEmpHead += '<th>'+ i +'</th>';
+			})
+			
+			//get body
+			$.each(json.employmentTable.professionalEmploymentInformation, function(i, item){
+				empEmpBody += '<tr><td>' + json.employmentTable.professionalEmploymentInformation[i].employer + '</td><td>' +
+				json.employmentTable.professionalEmploymentInformation[i].degree+'</td><td>'+ json.employmentTable.professionalEmploymentInformation[i].city +'</td><td>'+ 
+				json.employmentTable.professionalEmploymentInformation[i].title +'</td><td>'+ json.employmentTable.professionalEmploymentInformation[i].startDate +'</td></tr>';
+			})
+			$('.empTable').append('<div class = "empTable"><div><table id="table_id2" class="display"><h3>'+json.employmentTable.title+'</h3></br><thead><tr>' + empEmpHead + '</tr></thead><tbody>'+ empEmpBody + '</tbody></table></div></div>');
 		})
 
 //========================================================================================================
