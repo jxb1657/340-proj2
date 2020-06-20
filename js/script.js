@@ -318,6 +318,7 @@
 
 
 //========================================================================================================
+		//get people
 		//get faculty
 		xhr('get', {path: '/people/'}, '#people').done(function(json){
 			//just put out faculty...[staff would be inside of her as well, your problem!]
@@ -327,13 +328,13 @@
 				//note the class = "faculty" - how we will put an onclick on them all
 				//note the data-uname, how we can access all of the data later on!
 					//username is a unique identifier!
-				x += '<div class="faculty" data-uname = "'+this.username+
+				x += '<div id="people" data-uname = "'+this.username+
 				'" data-type = faculty"><h5>'+this.office+'</br>'+this.name+
 				'</h5><img style ="max-width: 150px" src="'+this.imagePath+'"/></div>';
 			})
-			$('#people').append(x);
+			$('.faculty').append(x);
 
-			$('.faculty').on('click',function(){
+			$('#people').on('click',function(){
 				//HUGE note - since this is assigned within the callback from the AJAX call
 					//another way to think of it is from here, the code can 'see' the json variable
 				//and when I later click on one of div's with a class of faculty
@@ -345,6 +346,14 @@
 				console.log(me);
 			});
 		});
+
+		//get staff
+		xhr('get', {path: '/people/'}, 'stafff').done(function(json){
+			var getStaff = '';
+			$.each(json.staff, function(){
+				getStaff += '<div data-uname="'+this.username+'"data-type>'
+			})
+		})
 
 	});
 
