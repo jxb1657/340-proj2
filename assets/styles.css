@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body{
     background-color: #FFFFF2;
 }
@@ -7,3 +8,14 @@ body{
     width: 1000px;
 }
 
+=======
+body{
+    background-color: #FFFFF2;
+}
+
+#StudentsMap{
+    height: 1000px;
+    width: 1000px;
+}
+
+>>>>>>> 275a938fb761fb179b67669599f2a2d365e36cd6
