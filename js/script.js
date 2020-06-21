@@ -351,11 +351,11 @@
 		xhr('get', {path: '/people/'}, '#people').done(function(json){
 			var getStaff = '';
 			$.each(json.staff, function(){
-				getStaff += '<div data-type="staff"><h5>'+ this.name +'</h5><img style = "max-width: 150 px" src="'+ this.imagePath +'"/></div>';
+				getStaff += '<div data-uname ="' + this.username + '" data-type="staff"><h5>'+ this.name +'</h5><img style = "max-width: 150 px" src="'+ this.imagePath +'"/></div>';
 			})
 			$('.staff').append(' <h2>Staff</h2></br> '+getStaff);
 			$('.staff').on('click', function(){
-				var me = getAttributesByName(json.staff, 'username', $(this).attr('data-type'));
+				var me = getAttributesByName(json.staff, 'username', $(this).attr('data-uname'));
 				console.log(me);
 			});
 		});
