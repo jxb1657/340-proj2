@@ -323,16 +323,18 @@
 		xhr('get', {path: '/people/'}, '#people').done(function(json){
 			//just put out faculty...[staff would be inside of her as well, your problem!]
 			var getFaculty = '';
+			var getTitleAndSub = '';
 			$.each(json.faculty,function(){//go through each person in faculty
 				//build up a big string to place on page
 				//note the class = "faculty" - how we will put an onclick on them all
 				//note the data-uname, how we can access all of the data later on!
 					//username is a unique identifier!
+				getTitleAndSub = '<div><h4>'+ this.people.title +'</h4></br><h6>'+ this.people.subTitle +'</h6></div>';
 				getFaculty += '<div class ="faculty" data-uname = "'+this.username+
 				'" data-type = faculty"><h5>'+this.office+'</br>'+this.name+
 				'</h5><img style ="max-width: 150px" src="'+this.imagePath+'"/></div>';
 			})
-			$("#people").append('<h2>Faculty</h2></br>' +getFaculty);
+			$("#people").append(getTitleAndSub +'<h2>Faculty</h2></br>' +getFaculty);
 
 			$('.faculty').on('click',function(){
 				//HUGE note - since this is assigned within the callback from the AJAX call
