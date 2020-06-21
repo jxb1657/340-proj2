@@ -332,7 +332,7 @@
 				'" data-type = faculty"><h5>'+this.office+'</br>'+this.name+
 				'</h5><img style ="max-width: 150px" src="'+this.imagePath+'"/></div>';
 			})
-			$('.faculty').append('<h2>Faculty</h2></br>' +getFaculty);
+			$("#people").append('<h2>Faculty</h2></br>' +getFaculty);
 
 			$('.faculty').on('click',function(){
 				//HUGE note - since this is assigned within the callback from the AJAX call
@@ -351,9 +351,9 @@
 		xhr('get', {path: '/people/'}, '#people').done(function(json){
 			var getStaff = '';
 			$.each(json.staff, function(){
-				getStaff += '<div data-uname ="' + this.username + '" data-type="staff"><h5>'+ this.name +'</h5><img style = "max-width: 150 px" src="'+ this.imagePath +'"/></div>';
+				getStaff += '<div class="staff" data-uname ="' + this.username + '" data-type="staff"><h5>'+ this.name +'</h5><img style = "max-width: 150 px" src="'+ this.imagePath +'"/></div>';
 			})
-			$('.staff').append(' <h2>Staff</h2></br> '+getStaff);
+			$('#people').append(' <h2>Staff</h2></br> '+getStaff);
 			$('.staff').on('click', function(){
 				var me = getAttributesByName(json.staff, 'username', $(this).attr('data-uname'));
 				console.log(me);
