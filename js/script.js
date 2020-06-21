@@ -322,19 +322,19 @@
 		//get faculty
 		xhr('get', {path: '/people/'}, '#people').done(function(json){
 			//just put out faculty...[staff would be inside of her as well, your problem!]
-			var x = '';
+			var getFaculty = '';
 			$.each(json.faculty,function(){//go through each person in faculty
 				//build up a big string to place on page
 				//note the class = "faculty" - how we will put an onclick on them all
 				//note the data-uname, how we can access all of the data later on!
 					//username is a unique identifier!
-				x += '<div id="people" data-uname = "'+this.username+
+				getFaculty += '<div class ="faculty" data-uname = "'+this.username+
 				'" data-type = faculty"><h5>'+this.office+'</br>'+this.name+
 				'</h5><img style ="max-width: 150px" src="'+this.imagePath+'"/></div>';
 			})
-			$('.faculty').append(x);
+			$('.faculty').append('<h2>Faculty</h2></br>' +getFaculty);
 
-			$('#people').on('click',function(){
+			$('.faculty').on('click',function(){
 				//HUGE note - since this is assigned within the callback from the AJAX call
 					//another way to think of it is from here, the code can 'see' the json variable
 				//and when I later click on one of div's with a class of faculty
@@ -348,12 +348,19 @@
 		});
 
 		//get staff
-		xhr('get', {path: '/people/'}, 'stafff').done(function(json){
+		xhr('get', {path: '/people/'}, '#people').done(function(json){
 			var getStaff = '';
 			$.each(json.staff, function(){
-				getStaff += '<div data-uname="'+this.username+'"data-type>'
+				getStaff += '<div data-type="staff"><h5>'+ this.name +'</h5><img style = "max-width: 150 px" src="'+ this.imagePath +'"/></div>';
 			})
-		})
+			$('.staff').append(' <h2>Staff</h2></br> '+getStaff);
+			$('.staff').on('click', function(){
+				var me = getAttributesByName(json.staff, 'username', $(this).attr('data-type'));
+				console.log(me);
+			});
+		});
+
+
 
 	});
 
