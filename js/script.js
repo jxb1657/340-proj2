@@ -135,9 +135,9 @@
 			var minors2 = '';
 			$.each(json.UgMinors, function(i, item){
 				//get the title screen for the minors
-				minors1 += '<div class = "minorFirst" <h3>'+this.title+'</h3></div>';
+				minors1 += '<div class = "minorFirst"> <h3>'+this.title+'</h3></div>';
 				//get the info screen for the appropriate minor click.
-				minors2 += '<div class = "minorSecond" <h3>'+this.title+'</h3><h6>'+
+				minors2 += '<div class = "minorSecond"> <h3>'+this.title+'</h3><h6>'+
 				this.name+'</h6><p>'+this.description+'</p><div>'+item.courses+'</div><p>'+
 				this.note+'</p></div>';
 			})
@@ -324,17 +324,18 @@
 			//just put out faculty...[staff would be inside of her as well, your problem!]
 			var getFaculty = '';
 			var getTitleAndSub = '';
+			getTitleAndSub = '<h4>'+ json.title +'</h4></br><h6>'+ json.subTitle+'</h6>';
+
 			$.each(json.faculty,function(){//go through each person in faculty
 				//build up a big string to place on page
 				//note the class = "faculty" - how we will put an onclick on them all
 				//note the data-uname, how we can access all of the data later on!
 					//username is a unique identifier!
-				getTitleAndSub = '<div><h4>'+ this.people.title +'</h4></br><h6>'+ this.people.subTitle +'</h6></div>';
 				getFaculty += '<div class ="faculty" data-uname = "'+this.username+
 				'" data-type = faculty"><h5>'+this.office+'</br>'+this.name+
 				'</h5><img style ="max-width: 150px" src="'+this.imagePath+'"/></div>';
 			})
-			$("#people").append(getTitleAndSub +'<h2>Faculty</h2></br>' +getFaculty);
+			$("#people").append(getTitleAndSub+'<h2>Faculty</h2></br>' +getFaculty);
 
 			$('.faculty').on('click',function(){
 				//HUGE note - since this is assigned within the callback from the AJAX call
@@ -362,9 +363,75 @@
 			});
 		});
 
+		//========================================================================================================
+		//get Research
+		//get AreaOfInterest
+		xhr('get', {path: '/research/'}, '#aoi').done(function(json){
+			var getInterestTitle = '';
+			var getInterestCitations = '';
+
+			$.each(json.byInterestArea, function(i, item){
+				//get the title screen for the AOI
+				getInterestTitle += '<div class = "AOITitle"> <h3>'+this.areaName+'</h3></div>';
+
+				//initalize and reset citations list on-call
+				var getAOICitationList = '';
+				var x = 0;
+
+				//get the info screen for the appropriate AOI click.
+				//Iterate through all the citations list before printing when being called
+				for(x=0;x<item.citations.length;x++){
+					getAOICitationList += '<ul><li>' + item.citations[x] + '</li></ul>';
+				}
+				getInterestCitations += '<div class = "AOICitations"> <h3>Research by Domain Area: '+this.areaName+'</h3>'+ getAOICitationList +'</div>';
+			})
+			$('#aoi').append(getInterestTitle);
+			//$('#aoi').append(getInterestCitations);
+		});
+
+		//get FacultyResearch
+		xhr('get', {path: '/research/'}, '#facultyResearch').done(function(json){
+			var getFacultyNames = '';
+			var getFacultyCitations = '';
+			
+			// $.each(json.byFaculty, function(i,item){
+			// 	//get list of all citations
+			// 	for(x=0;x<item.citations.length; x++){
+			// 		getFCitationList += '<ul><li>'+ item.citations[x] +'</li></ul>'
+			// 	}
+			// })
+
+			$.each(json.byFaculty, function(i, item){
+				//get the title screen for the faculties
+				getFacultyNames += '<div class = "FacultyTitles"> <h3>'+this.facultyName+'</h3></div>';
+
+				//initialize and reset citations list on-call
+				var getFCitationList = '';
+				var x = 0;
+
+				//get the info screen for the appropriate faculty click.
+				//Iterate through all the citation list before printing when being called
+				for(x=0;x<item.citations.length; x++){
+					getFCitationList += '<ul><li>'+ item.citations[x] +'</li></ul>';
+				}
+				getFacultyCitations += '<div class = "FacultyCitations"> <h3>'+this.facultyName+'</h3>'+ getFCitationList +'</div>';
+			})
+			$('#facultyResearch').append(getFacultyNames);
+			//$('#facultyResearch').append(getFacultyCitations);
+		});
 
 
+//========================================================================================================
+		//get Resources
+
+
+
+
+//========================================================================================================
+		//get Footer
 	});
+
+	
 
 	//************this function helps to find out which one I am!!!
 	function getAttributesByName(arr, name, val){
