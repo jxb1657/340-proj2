@@ -432,9 +432,21 @@
 		var getFacultyAdvisors = '';
 		var getISTMinorAdvising = '';
 		var getTutorsandLabInfo = '';
-		var getStudentAmb = '';
-		var getForms = '';
-		var coopEnrollment = '';
+		var getStudentAmbIntro = '';
+		//in array subSectionContent
+		var getStudentAmbMissionStatement = '';
+		var getStudentAmbOverView = '';
+		var getStudentAmbCriteria = '';
+		var getStudentAmbDuties = '';
+		var getStudentAmbExpectations = '';
+		var getStudentAmbPerks ='';
+		var getStudentAmbApply = '';
+ 
+		var getGradForms = '';
+		var getUnderForms = '';
+
+		var getCoopContent = '';
+		var getCoopEnrollment = '';
 
 		//get Study Abroad
 		xhr('get',{path: '/resources/'}, '#currentStudents').done( function(json){
@@ -447,68 +459,102 @@
 
 		//get Academic Advisor
 		xhr('get',{path: '/resources/'}, '#currentStudents').done( function(json){
-			getStudentServices = '<h4>'+json.studentServices.title+ '</h4>';
+			getStudentServices = '<div class="academic"><h4>'+json.studentServices.title+ '</h4>';
 			$.each(json.studentServices.academicAdvisors, function(){
-				getAcademicAdvisors ='<div class="academic"><h5>'+ json.studentServices.academicAdvisors.title +'</h5></br><h6>'+  json.studentServices.academicAdvisors.description+'</h6></br><h7>'+ json.studentServices.academicAdvisors.faq.title +'</h7></br><a href="'+ json.studentServices.academicAdvisors.faq.contentHref +'"></a><div>';
+				getAcademicAdvisors ='<h5>'+ json.studentServices.academicAdvisors.title +'</h5></br><h6>'+  json.studentServices.academicAdvisors.description+'</h6></br><h7><a href="'+ json.studentServices.academicAdvisors.faq.contentHref +'">'+ json.studentServices.academicAdvisors.faq.title +'</a></h7></div>';
 			});
 			$('#academicAdvisors').append(getStudentServices+getAcademicAdvisors);
 		});
 		
 		//get Professional Advisor
 		xhr('get',{path: '/resources/'}, '#currentStudents').done( function(json){
-			$.each(json.studentServices, function(i, item){
-				getProfessionalAdvisors += '<h4>'+json.studentServices.title+ '</h4></br><h5>'+ json.academicAdvisors.title +'</h5></br><h6>'+  json.studentServices.academicAdvisors.description+'</h6></br><h7>'+ json.studentServices.faq +'</h7>';
+			$.each(json.studentServices.professonalAdvisors.advisorInformation, function(i, item){
+				getProfessionalAdvisors += '<h5>'+ item.name +'</h5></br><h6>'+ item.department +'</h6></br><h7>'+ item.email +'</h7>';
 			});
-			$('#professionalAdvisors').append('<div class="abroad"><h3>'+ json.studyAbroad.title +'</h3><h7>'+ json.studyAbroad.description +'</h7>'+ getStudyAbroad + '</div>');
+			$('#professionalAdvisors').append('<div class="proAdvisors"><h3>'+ json.studentServices.professonalAdvisors.title +'</h3>' + getProfessionalAdvisors + '</div>');
 		});
 
-		// //get Faculty Advisors
-		// xhr('get',{path: '/resources/'}, '#currentStudents').done( function(json){
-		// 	$.each(json.studentServices, function(i, item){
-		// 		getStudentServices += '<h4>'+json.studentServices.title+ '</h4></br><h5>'+ json.academicAdvisors.title +'</h5></br><h6>'+  json.studentServices.academicAdvisors.description+'</h6></br><h7>'+ json.studentServices.faq +'</h7>';
-		// 	});
-		// 	$('#facultyAdvisors').append('<div class="abroad"><h3>'+ json.studyAbroad.title +'</h3><h7>'+ json.studyAbroad.description +'</h7>'+ getStudyAbroad + '</div>');
-		// });
+		//get Faculty Advisors
+		xhr('get',{path: '/resources/'}, '#currentStudents').done( function(json){
+			$.each(json.studentServices.facultyAdvisors, function(){
+				getFacultyAdvisors = '<div class="facultyInfo"><h5>'+ json.studentServices.facultyAdvisors.title +'</h5></br><p>'+ json.studentServices.facultyAdvisors.description +'</p></div>';
+			});
+			$('#facultyAdvisors').append(getFacultyAdvisors);
+		});
 
-		// //get IST Minor Advising
-		// xhr('get',{path: '/resources/'}, '#currentStudents').done( function(json){
-		// 	$.each(json.studentServices, function(i, item){
-		// 		getStudentServices += '<h4>'+json.studentServices.title+ '</h4></br><h5>'+ json.academicAdvisors.title +'</h5></br><h6>'+  json.studentServices.academicAdvisors.description+'</h6></br><h7>'+ json.studentServices.faq +'</h7>';
-		// 	});
-		// 	$('#istMinorAdvising').append('<div class="abroad"><h3>'+ json.studyAbroad.title +'</h3><h7>'+ json.studyAbroad.description +'</h7>'+ getStudyAbroad + '</div>');
-		// });
+		//get IST Minor Advising
+		xhr('get',{path: '/resources/'}, '#currentStudents').done( function(json){
+			$.each(json.studentServices.istMinorAdvising.minorAdvisorInformation, function(i, item){
+				getISTMinorAdvising += '<h5>'+ item.title +'</h5></br><h6>'+ item.advisor +'</h6></br><h7>'+ item.email +'</h7>';
+			});
+			$('#istMinorAdvising').append('<div class="istAdvising"><h3>'+ json.studentServices.istMinorAdvising.title +'</h3>' + getISTMinorAdvising + '</div>');
+		});
 
-		// //get Tutors and Lab Info
-		// xhr('get',{path: '/resources/'}, '#currentStudents').done( function(json){
-		// 	$.each(json.studentServices, function(i, item){
-		// 		getStudentServices += '<h4>'+json.studentServices.title+ '</h4></br><h5>'+ json.academicAdvisors.title +'</h5></br><h6>'+  json.studentServices.academicAdvisors.description+'</h6></br><h7>'+ json.studentServices.faq +'</h7>';
-		// 	});
-		// 	$('#tutorsAndLabInfo').append('<div class="abroad"><h3>'+ json.studyAbroad.title +'</h3><h7>'+ json.studyAbroad.description +'</h7>'+ getStudyAbroad + '</div>');
-		// });
+		//get Tutors and Lab Info
+		xhr('get',{path: '/resources/'}, '#currentStudents').done( function(json){
+			$.each(json.tutorsAndLabInformation, function(){
+				getTutorsandLabInfo = '<div class="tutors"><h2>'+ json.tutorsAndLabInformation.title +'</h2><p>'+ json.tutorsAndLabInformation.description +'</br><a href="'+ json.tutorsAndLabInformation.tutoringLabHoursLink +'">Tutor Hours</a></p></div>';
+			});
+			$('#tutorsAndLabInfo').append(getTutorsandLabInfo);
+		});
 
-		// //get Student Ambassador
-		// xhr('get',{path: '/resources/'}, '#currentStudents').done( function(json){
-		// 	$.each(json.studentServices, function(i, item){
-		// 		getStudentServices += '<h4>'+json.studentServices.title+ '</h4></br><h5>'+ json.academicAdvisors.title +'</h5></br><h6>'+  json.studentServices.academicAdvisors.description+'</h6></br><h7>'+ json.studentServices.faq +'</h7>';
-		// 	});
-		// 	$('#studentAmbassador').append('<div class="abroad"><h3>'+ json.studyAbroad.title +'</h3><h7>'+ json.studyAbroad.description +'</h7>'+ getStudyAbroad + '</div>');
-		// });
+		//get Student Ambassador
+		xhr('get',{path: '/resources/'}, '#currentStudents').done( function(json){
+			getStudentAmbIntro += '<div class="ambassadorIntro"><h4>'+ json.studentAmbassadors.title+'</div>';
 
-		// //get Forms
-		// xhr('get',{path: '/resources/'}, '#currentStudents').done( function(json){
-		// 	$.each(json.studentServices, function(i, item){
-		// 		getStudentServices += '<h4>'+json.studentServices.title+ '</h4></br><h5>'+ json.academicAdvisors.title +'</h5></br><h6>'+  json.studentServices.academicAdvisors.description+'</h6></br><h7>'+ json.studentServices.faq +'</h7>';
-		// 	});
-		// 	$('#forms').append('<div class="abroad"><h3>'+ json.studyAbroad.title +'</h3><h7>'+ json.studyAbroad.description +'</h7>'+ getStudyAbroad + '</div>');
-		// });
+			//getMissionStatement
+			getStudentAmbMissionStatement = '<div class="missionStatment"><h5>'+ json.studentAmbassadors.subSectionContent[0].title +'</h5><p>'+ json.studentAmbassadors.subSectionContent[0].description +'</p>' +'</h4><img class="center" src="'+ json.studentAmbassadors.ambassadorsImageSource +'"/></div>';
+			
 
-		// //get Coop Enrollment
-		// xhr('get',{path: '/resources/'}, '#currentStudents').done( function(json){
-		// 	$.each(json.studentServices, function(i, item){
-		// 		getStudentServices += '<h4>'+json.studentServices.title+ '</h4></br><h5>'+ json.academicAdvisors.title +'</h5></br><h6>'+  json.studentServices.academicAdvisors.description+'</h6></br><h7>'+ json.studentServices.faq +'</h7>';
-		// 	});
-		// 	$('#coopEnrollment').append('<div class="abroad"><h3>'+ json.studyAbroad.title +'</h3><h7>'+ json.studyAbroad.description +'</h7>'+ getStudyAbroad + '</div>');
-		// });
+			//getStudentAmbOverView
+			getStudentAmbOverView += '<div class = "overview"><h3>'+  json.studentAmbassadors.subSectionContent[1].title+'</h3><p>'+json.studentAmbassadors.subSectionContent[1].description+'</p></div>';
+
+			//getStudentAmbCriteria
+			getStudentAmbCriteria += '<div class = "criteria"><h3>'+  json.studentAmbassadors.subSectionContent[2].title+'</h3><p>'+json.studentAmbassadors.subSectionContent[2].description+'</p></div>';
+			
+
+			//getStudentAmbDuties
+			getStudentAmbDuties += '<div class = "duties"><h3>'+  json.studentAmbassadors.subSectionContent[3].title+'</h3><p>'+json.studentAmbassadors.subSectionContent[3].description+'</p></div>';
+
+
+			//getStudentAmbExpectations
+			getStudentAmbExpectations += '<div class = "expectatitions"><h3>'+  json.studentAmbassadors.subSectionContent[4].title+'</h3><p>'+json.studentAmbassadors.subSectionContent[4].description+'</p></div>';
+
+			// //getStudentAmbPerks
+			getStudentAmbPerks = '<div class = "overview"><h3>'+  json.studentAmbassadors.subSectionContent[5].title+'</h3><p>'+json.studentAmbassadors.subSectionContent[5].description+'</p></div>';
+
+			//getStudentAmbApply
+			getStudentAmbApply = '<div class = "apply"><h3>Interest students are encouraged to <a href="'+ json.studentAmbassadors.applicationFormLink +'">'+json.studentAmbassadors.subSectionContent[6].title+'</a> via our Google Forms</h3><p>'+ json.studentAmbassadors.note +'</p></div>';
+			
+			$('#studentAmbassador').append(getStudentAmbIntro+ getStudentAmbMissionStatement + getStudentAmbOverView + getStudentAmbCriteria + getStudentAmbDuties + getStudentAmbExpectations + getStudentAmbPerks + getStudentAmbApply);
+		});
+
+		//get Forms
+		xhr('get',{path: '/resources/'}, '#currentStudents').done( function(json){
+			//graduateForms
+			$.each(json.forms.graduateForms, function(i, item){
+				getGradForms += '<h4><a href="'+ item.href+'">'+item.formName+ '</a></h4>';
+			});
+			//undergraduateForms
+			$.each(json.forms.undergraduateForms, function(){
+				getUnderForms += '<h4><a href="'+ this.href +'">'+ this.formName+ '</a></h4>';
+			});
+		
+
+			$('#forms').append('<div class="formInfo">'+ getGradForms + getUnderForms +'</div>');
+		});
+
+		//get Coop Enrollment
+		xhr('get',{path: '/resources/'}, '#currentStudents').done( function(json){
+			$.each(json.coopEnrollment.enrollmentInformationContent, function(i, item){
+				getCoopContent  += '<h3>'+  item.title+'</h3><p>'+item.description+'</p>';
+			});
+
+			$.each(json.coopEnrollment, function(){
+				getCoopEnrollment  += '<h3>'+ json.coopEnrollment.title +'</h3>'+ getCoopContent +'<a href="'+ json.coopEnrollment.RITJobZoneGuidelink +'">Co-op Guide!</a></h7>';
+			});
+			$('#coopEnrollment').append('<div class=coopResources>'+ getCoopEnrollment +'</div>');
+		});
 //========================================================================================================
 		//get Footer
 	});
