@@ -92,11 +92,15 @@
 				}
 			});
 			$('#graduate').append(z);
+			$(window).on('scroll', function(){
+				$('#graduate').css("left", -$(window).scrollTop());
+			});
 
 			$('.graduate').on('click',function(){
 				var me = getAttributesByName(json.graduate,'degreeName', $(this).attr('degree-name'));
 				console.log(me);
 			});
+
 		});
 		
 //========================================================================================================
