@@ -7,13 +7,13 @@ body{
     width: 1000px;
 }
 
-section{
+/* section{
     width:1920px;
     height: auto;
     overflow-x: auto;
     overflow-y: auto;
 
-    /*transform: rotate(-90deg) translateY(-100px);*/
+    transform: rotate(-90deg) translateY(-100px);
 
     transform: rotate(-90deg) translateY(-100px);
     transform-origin: right top;
@@ -25,5 +25,5 @@ section > div{
 
     transform: rotate(90deg);
     transform-origin: right top;
-}
+} */
 
