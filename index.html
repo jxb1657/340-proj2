@@ -12,7 +12,21 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0PyfT1KQmAfuel2SMvKKEacCnE1tL9_8"></script>
   <!-- Script Call for DataTables -->
   <script type="text/javascript" charset="utf8" src="DataTables/datatables.js"></script>
-
+  <!--Add Browser Detecttion-->
+  <script>
+    var browsers = ["Firefox", "Chrome", "Safari", "Opera", "MSIE", "Trident", "Microsoft Edge"];
+    var b, ua = navigator.userAgent;
+    for(var i=0; i<browsers.length; i++){
+      if(ua.indexOf(browsers[i])> -1){
+        b = browsers[i];
+        break;
+      }
+    }
+    if(b=="MSIE" || b=="Trident" || b=="Microsoft Edge"){
+      b = "Internet Browser";
+    }
+    alert("You are using " + b + " browser");
+  </script>
 
 </head>
 <body>
@@ -49,15 +63,15 @@
     <div id="employment" class="coopTable"></div>
   </section>
   
- 
+
   <section class="page8">
-     <div id="map-canvas">
+    <div id="map-canvas">
       <div id="StudentsMap"></div>
-     </div>
+    </div>
     
   </section>
 
- 
+
   <section class="page9">
     <!-- <div id="faculty"></div> -->
     <div id="people"> </div>
@@ -86,11 +100,12 @@
   </section>
   
   <section class="page13">
-    <div id="socialPresence"></div>
     <div id="footer"></div>
+    <div id="footerLinks"></div>
+    <div id="copyrights"></div>
+    <div id ="news"></div>
   </section>
   
-	<!--<div id="content" style="height:200px"></div> -->
-
+  <!--<div id="content" style="height:200px"></div> -->
 </body>
 </html>
