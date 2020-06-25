@@ -557,6 +557,29 @@
 		});
 //========================================================================================================
 		//get Footer
+		
+		xhr('get',{path: '/footer/'}, '#footer').done(function(json){
+			var getFooter = '';
+			var getFooterLinks = '';
+			var getCopyRights = '';
+			var getNews = '';
+		
+			getFooter = '<div class="social"><h2>'+ json.social.title +'</h2><h4>'+ json.social.tweet +'</h4><p>'+ json.social.by +'</p><div class = twitter>'+ json.social.twitter +'</div><div class="facebook">'+ json.social.facebook +'</div></div>';
+			
+
+			$.each(json.quickLinks, function(i, item){
+				getFooterLinks += '<div class = "footerLink"><h4><a href="'+ item.href +'">'+ item.title+'</a></h4></div></br>';
+			});
+
+			getCopyRights += '<div class="copyrights">'+ json.copyright.title + json.copyright.html + '</div>';
+		
+			getNews += '<div class="news">'+ json.news +'</div>';
+
+			$("#footer").append(getFooter);
+			$("#footer").append(getFooterLinks);
+			$('#copyrights').append(getCopyRights);	
+			$("#news").append(getNews);
+		});			
 	});
 
 	
