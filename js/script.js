@@ -594,7 +594,7 @@ $(document).ready(function(){
 
 		getCopyRights += '<div class="copyrights">'+ json.copyright.title + json.copyright.html + '</div>';
 	
-		getNews += '<div class="news">'+ json.news +'</div>';
+		getNews += '<div class="news"><a href="'+ json.news +'">All News</a></div>';
 
 		$("#footer").append(getFooter);
 		$("#footer").append(getFooterLinks);
