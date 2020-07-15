@@ -592,7 +592,7 @@ $(document).ready(function(){
 			getFooterLinks += '<div class = "footerLink"><h4><a href="'+ item.href +'">'+ item.title+'</a></h4></div></br>';
 		});
 
-		getCopyRights += '<div class="copyrights">'+ json.copyright.title + json.copyright.html + '</div>';
+		getCopyRights += '<div class="copyrights">'+ json.copyright.title + json.copyright.html + '</div>';	
 	
 		getNews += '<div class="news"><a href="'+ json.news +'">All News</a></div>';
 
