@@ -70,68 +70,68 @@ textarea {
 }
 
 #section0 {
-  height: 60vh;
+  height: auto;
   background: #00b9ae;
 }
 
 #section1 {
-  height: 100vh;
+  height: auto;
   background: #6699cc;
 }
 
 #section2 {
-  height: 150vh;
+  height: auto;
   background: #ff8c42;
 }
 
 #section3 {
-  height: 60vh;
+  height: auto;
   background: #ff3c38;
 }
 
 #section4 {
-  height: 100vh;
+  height: auto;
   background: #a23e48;
 }
 
 #section5 {
-  height: 200vh;
+  height: auto;
   background:gray;
 }
 
 #section6 {
-  height: 200vh;
-  background: white;
+  height: auto;
+  background: black;
 }
 
 #section7 {
-  height: 200vh;
+  height: auto;
   background: gray;
 }
 
 #section8 {
-  height: 200vh;
-  background: white;
+  height: auto;
+  background: black;
 }
 
 #section9 {
-  height: 200vh;
+  height: auto;
   background: gray;
 }
 
 #section10 {
-  height: 200vh;
-  background: white;
+  height: auto;
+  background: black;
 }
 
 #section11 {
-  height: 200vh;
+  height: auto;
   background: gray;
 }
 
 #section12 {
-  height: 200vh;
-  background: white;
+  height: auto;
+  background: black;
 }
 
 

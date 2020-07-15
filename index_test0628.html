@@ -8,6 +8,7 @@
   <link rel="stylesheet" href = "assets/section_slider.css">
   <link rel="stylesheet" href = "assets/jquery.progresstracker.css">
   <link rel="stylesheet" type="text/css" href="DataTables/datatables.css">
+  <link rel="stylesheet" type="text/css" href="assets/horizontal.css">
   <!-- JQuery Library -->
   <script src="https://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
   <!-- RIT Library API Calls (Content) -->
@@ -21,6 +22,7 @@
   <script src="js/section_slider.js" type="text/javascript"></script>
   <!-- Script Call for Section Indicator API -->
   <script src="js/jquery.progresstracker.js" type="text/javascript"></script>
+  <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
   <script src="js/jquery.progresstracker.min.js" type="text/javascript"></script>
   <!--Add Browser Detecttion-->
   <script>
@@ -40,7 +42,9 @@
 
 </head>
 <body>
-    <div class ="class-container">
+    <div class = "container-outer">
+    <div class = "container">
+    <div class = "container-inner">
         <div id="section0" class="section">
             <div id="ptsection-zero" class="pt-section" data-name="Section Zero">
                 <h2>IST Dept Site</h2>
@@ -138,7 +142,9 @@
                 <div id ="news" class="horizontal-card"></div>
             </div>
         </div>
+    </div><!-- Container-Inner -->
     </div>
+    </div><!--Container-Outer-->
   <!--<div id="content" style="height:200px"></div> -->
 </body>
 </html>
