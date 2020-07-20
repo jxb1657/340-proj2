@@ -95,22 +95,25 @@ $(document).ready(function(){
 //========================================================================================================		
 	//get graduate
 	xhr('get', {path: '/degrees/graduate'}, '#graduate').done(function(json){
+		var testTitle="";
+		$.each(json.graduate, function(){
+			testTitle = '<div class="graduate" degree-name ="'+ this.degreeName +'"data-type=graduate"><h3>'+ this.title +'</h3></div>';
+		})
+
 		var z ='';
 		$.each(json.graduate, function(i, item){
 			if(item.availableCertificates === undefined || item.availableCertificates.length == 0){
 				z += '<div class = "graduate" degree-name ="'+ this.degreeName + 
-				'" data-type = graduate"><h5>' +this.title+'</br>' +  item.description +
+				'" data-type = graduate"><h5>'+ item.description +
 				'</h5><p>' + item.concentrations + '</p></div>';
 			}
 			else{
-				z += '<div class = "gac" degree-name ="'+ this.degreeName + 
-				'" data-type = graduate"></br>' +
-				'<h6>' +item.availableCertificates +'</h6></div>';
+				z += '<div class = "gac" degree-name ="'+ this.degreeName + '" data-type = graduate"></br>'+'<h6>' +item.availableCertificates +'</h6></div>';
 			}
 		});
-		$('#graduate').append(z);
+		console.log(testTitle);
+		$('#graduate').append(testTitle);
 		$('#graduateModal').append(z);
-
 
 		$(window).on('scroll' , function(){
 			$('#graduate').css("left", -$(window).scrollTop());
