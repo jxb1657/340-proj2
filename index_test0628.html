@@ -40,29 +40,6 @@
     }
     alert("You are using " + b + " browser");
   </script>
-
-  <script>//Modal Script
-        var modal = document.getElementById("myModal");
-
-        var btn = document.getElementById("myBtn");
-
-        var span = document.getElementsByClassName("close")[0];
-
-        btn.onclick = function(){
-            modal.style.display = "block";
-            
-        }
-
-        span.onclick = function(){
-            modal.style.display = "none";
-        }
-
-        window.onclick = function(event){
-            if (event.target == modal){
-                modal.style.display = "none";
-            }
-        }
-  </script>
 </head>
 <body>
     <div class = "container">
@@ -80,17 +57,19 @@
 
         <div id="section2" class="section">
             <div id="ptsection-two" class ="pt-section" data-name="Section Two">
-                <div id="myBtn">
+                <button id="myBtn">
                     <div id="undergraduate"></div>
-                </div>
+                </button>
                 <div id="myModal" class="modal"></div>
 
-                <div id="myBtn">
+                <button id="myBtn">
                     <div id="graduate"></div>
-                </div>
-                <div id="myModal" class="modal">
-                    <div id="graduateModal" class="modal-content">
-                        <span class="close">&times;</span>
+                </button>
+                <div id="myModal">
+                    <div id="graduateModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                        </div>  
                     </div>
                 </div>
 
@@ -178,4 +157,26 @@
     </div>
   <!--<div id="content" style="height:200px"></div> -->
 </body>
+<script>//Modal Script
+    var modal = document.getElementById("myModal");
+
+    var btn = document.getElementById("myBtn");
+
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function(){
+        modal.style.display = "block";
+        
+    }
+
+    span.onClick = function(){
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event){
+        if (event.target == modal){
+            modal.style.display = "none";
+        }
+    }
+</script>
 </html>
