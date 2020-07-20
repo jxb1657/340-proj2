@@ -58,39 +58,39 @@ $(document).ready(function(){
 	//GET the "About" information from the API and use a 
 	//proxy to to send in the data of path = /about/
 	
-	$.ajax({
-		type:'get',
-		url:'proxy.php',
-		data:{path:"/about/"},
-		dataType:'json'
-	}).done(function(json){
-		console.log(json.title);
-	});
+	// $.ajax({
+	// 	type:'get',
+	// 	url:'proxy.php',
+	// 	data:{path:"/about/"},
+	// 	dataType:'json'
+	// }).done(function(json){
+	// 	console.log(json.title);
+	// });
 	
-	//ajax call for undergraduate 
-	$.ajax({
-		//set the properties of the AJAX call
-		type: 'get', //get or post, we want a get
-		async: true, //do we want this to be a blocking or not (Non-blocking)
-		cache: false, //we do NOT want to use a cached version (if there was one)
-		url: 'proxy.php', //still (always for this assignment) hit the proxy.php
-		data:{path:'/degrees/undergraduate/'}, //want more specific information
-		dataType: 'json' //want it to come back as JSON
-	}).done(function(json){
-		/*
-		inside of here is when we have made the return trip, this is the callback the argument 'json' above
-		is holding the returned value from the API since the json.undergraduate is an array (square brackets!),
-		we can use jQuery's each iterator and put it on the page!
-		*/
-		$.each(json.undergraduate,function(i, item){
-			/*
-			i - counter, item - reference to this pass through the data
-			next 2 lines showing the use of either this or item (they are interchangeable)
-			*/
-			$('#content').append('<h2>'+ this.title +"</h2>");
-			$('#content').append('<h4>'+ item.description + '</h4>');
-		});
-	});
+	// //ajax call for undergraduate 
+	// $.ajax({
+	// 	//set the properties of the AJAX call
+	// 	type: 'get', //get or post, we want a get
+	// 	async: true, //do we want this to be a blocking or not (Non-blocking)
+	// 	cache: false, //we do NOT want to use a cached version (if there was one)
+	// 	url: 'proxy.php', //still (always for this assignment) hit the proxy.php
+	// 	data:{path:'/degrees/undergraduate/'}, //want more specific information
+	// 	dataType: 'json' //want it to come back as JSON
+	// }).done(function(json){
+	// 	/*
+	// 	inside of here is when we have made the return trip, this is the callback the argument 'json' above
+	// 	is holding the returned value from the API since the json.undergraduate is an array (square brackets!),
+	// 	we can use jQuery's each iterator and put it on the page!
+	// 	*/
+	// 	$.each(json.undergraduate,function(i, item){
+	// 		/*
+	// 		i - counter, item - reference to this pass through the data
+	// 		next 2 lines showing the use of either this or item (they are interchangeable)
+	// 		*/
+	// 		$('#content').append('<h2>'+ this.title +"</h2>");
+	// 		$('#content').append('<h4>'+ item.description + '</h4>');
+	// 	});
+	// });
 
 //========================================================================================================		
 	//get graduate
@@ -109,7 +109,10 @@ $(document).ready(function(){
 			}
 		});
 		$('#graduate').append(z);
-		$(window).on('scroll', function(){
+		$('#graduateModal').append(z);
+
+
+		$(window).on('scroll' , function(){
 			$('#graduate').css("left", -$(window).scrollTop());
 		});
 
@@ -178,6 +181,7 @@ $(document).ready(function(){
 		var empStat = '';
 		var empEmployers = '';
 		var empCareers = '';
+		
 		var empCoopHead = '';
 		var empCoopBody ='';
 		var empEmpHead ='';
