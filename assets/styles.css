@@ -27,7 +27,7 @@ section > div{
     transform-origin: right top;
 } */
 
-.modal{
+.modal, .myModal{
     display: none;
     position: fixed;
     z-index: 1;
