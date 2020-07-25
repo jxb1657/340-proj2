@@ -97,26 +97,31 @@ $(document).ready(function(){
 	xhr('get', {path: '/degrees/graduate'}, '#graduate').done(function(json){
 		var testTitle="";
 		$.each(json.graduate, function(){
-			testTitle = '<div class="graduate" degree-name ="'+ this.degreeName +'"data-type=graduate"><h3>'+ this.title +'</h3></div>';
+			testTitle = '<button class="myBtn"><div degree-name ="'+ this.degreeName +'"data-type=graduate"><h3>'+ json.graduate.title +'</h3></div></button>';
 		})
 
 		var z ='';
 		$.each(json.graduate, function(i, item){
 			if(item.availableCertificates === undefined || item.availableCertificates.length == 0){
-				z += '<div class = "graduate" degree-name ="'+ this.degreeName + 
+				z += '<div class="myModal" class="modal" degree-name ="'+ this.degreeName + 
 				'" data-type = graduate"><h5>'+ item.description +
 				'</h5><p>' + item.concentrations + '</p></div>';
 			}
 			else{
-				z += '<div class = "gac" degree-name ="'+ this.degreeName + '" data-type = graduate"></br>'+'<h6>' +item.availableCertificates +'</h6></div>';
+				z += '<div degree-name ="'+ this.degreeName + '" data-type = graduate"></br>'+'<h6>' +item.availableCertificates +'</h6></div>';
 			}
 		});
-		console.log(testTitle);
+		// console.log(testTitle);
 		$('#graduate').append(testTitle);
 		$('#graduateModal').append(z);
 
-		$(window).on('scroll' , function(){
-			$('#graduate').css("left", -$(window).scrollTop());
+		// $(window).on('scroll' , function(){
+		// 	$('#graduate').css("left", -$(window).scrollTop());
+		// });
+
+		$('.graduateModal').on('click',function(){
+			var me = getAttributesByName(json.graduate,'degreeName', $(this).attr('degree-name'));
+			console.log(me);
 		});
 
 		$('.graduate').on('click',function(){
@@ -125,7 +130,26 @@ $(document).ready(function(){
 		});
 
 	});
-	
+	var modal = document.getElementsByClassName("myModal");
+
+    var btn = document.getElementsByClassName("myBtn");
+
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function(){
+        modal.style.display = "block";
+        
+    }
+
+    span.onClick = function(){
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event){
+        if (event.target == modal){
+            modal.style.display = "none";
+        }
+    }
 //========================================================================================================
 	//get undergraduate
 	xhr('get', {path: '/degrees/undergraduate'}, '#undergraduate').done(function(json){
