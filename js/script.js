@@ -97,15 +97,15 @@ $(document).ready(function(){
 	xhr('get', {path: '/degrees/graduate'}, '#graduate').done(function(json){
 		var testTitle="";
 		$.each(json.graduate, function(){
-			testTitle = '<button class="myBtn"><div degree-name ="'+ this.degreeName +'"data-type=graduate"><h3>'+ json.graduate.title +'</h3></div></button>';
-		})
+			testTitle = '<button class="myBtn"><div degree-name ="'+ this.degreeName +'"data-type=graduate"><h3>'+ this.title +'</h3></div></button>';
+		});
 
 		var z ='';
 		$.each(json.graduate, function(i, item){
 			if(item.availableCertificates === undefined || item.availableCertificates.length == 0){
-				z += '<div class="myModal" class="modal" degree-name ="'+ this.degreeName + 
+				z += '<div class="myModal"><div class="modal" degree-name ="'+ this.degreeName + 
 				'" data-type = graduate"><h5>'+ item.description +
-				'</h5><p>' + item.concentrations + '</p></div>';
+				'</h5><p>' + item.concentrations + '</p></div></div>';
 			}
 			else{
 				z += '<div degree-name ="'+ this.degreeName + '" data-type = graduate"></br>'+'<h6>' +item.availableCertificates +'</h6></div>';
@@ -130,6 +130,41 @@ $(document).ready(function(){
 		});
 
 	});
+//========================================================================================================
+	//get undergraduate
+	xhr('get', {path: '/degrees/undergraduate'}, '#undergraduate').done(function(json){
+		//just put out faculty...[staff would be inside of her as well, your problem!]
+		var undergraduateContainer="";
+		var y = '';
+
+		$.each(json.undergraduate, function(){
+			undergraduateContainer = '<button class="myBtn"><div class="undergraduate" degree-name="'+this.degreeName+'" data-type = undergraduate"><h3>'+this.title+'</h3></div></button>';
+		})
+	
+		$.each(json.undergraduate,function(i, item){//go through each person in faculty
+			//build up a big string to place on page
+			//note the class = "faculty" - how we will put an onclick on them all
+			//note the data-uname, how we can access all of the data later on!
+				//username is a unique identifier!
+			y += '<div class="myModal"><div class="undergraduate" degree-name = "'+this.degreeName+
+			'" data-type = undergraduate"><h5>'+item.description+
+			'</h5><p>'+ item.concentrations +'</p></div></div>';
+		})
+		$('#undergraduate').append(undergraduateContainer);
+		$('#undergraduateModal').append(y);
+
+		$('.undergraduate').on('click',function(){
+			//HUGE note - since this is assigned within the callback from the AJAX call
+				//another way to think of it is from here, the code can 'see' the json variable
+			//and when I later click on one of div's with a class of faculty
+			//I can access the entire json object!
+
+			//while that is awesome, I still need to find out within all that data, which one am I?
+			//see: ******
+			var me = getAttributesByName(json.undergraduate,'degreeName', $(this).attr('degree-name'));
+			console.log(me);
+		});
+	});
 	var modal = document.getElementsByClassName("myModal");
 
     var btn = document.getElementsByClassName("myBtn");
@@ -150,34 +185,6 @@ $(document).ready(function(){
             modal.style.display = "none";
         }
     }
-//========================================================================================================
-	//get undergraduate
-	xhr('get', {path: '/degrees/undergraduate'}, '#undergraduate').done(function(json){
-		//just put out faculty...[staff would be inside of her as well, your problem!]
-		var y = '';
-		$.each(json.undergraduate,function(i, item){//go through each person in faculty
-			//build up a big string to place on page
-			//note the class = "faculty" - how we will put an onclick on them all
-			//note the data-uname, how we can access all of the data later on!
-				//username is a unique identifier!
-			y += '<div class="undergraduate" degree-name = "'+this.degreeName+
-			'" data-type = undergraduate"><h5>'+this.title+'</br>'+item.description+
-			'</h5><P>'+ item.concentrations +'</p></div>';
-		})
-		$('#undergraduate').append(y);
-
-		$('.undergraduate').on('click',function(){
-			//HUGE note - since this is assigned within the callback from the AJAX call
-				//another way to think of it is from here, the code can 'see' the json variable
-			//and when I later click on one of div's with a class of faculty
-			//I can access the entire json object!
-
-			//while that is awesome, I still need to find out within all that data, which one am I?
-			//see: ******
-			var me = getAttributesByName(json.undergraduate,'degreeName', $(this).attr('degree-name'));
-			console.log(me);
-		});
-	});
 
 //========================================================================================================
 	//get minors
