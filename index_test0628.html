@@ -57,22 +57,16 @@
 
         <div id="section2" class="section">
             <div id="ptsection-two" class ="pt-section" data-name="Section Two">
-                <button id="myBtn">
-                    <div id="undergraduate"></div>
-                </button>
-                <div id="myModal" class="modal"></div>
-
-                <button id="myBtn">
-                    <div id="graduate"></div>
-                </button>
-                <div id="myModal">
-                    <div id="graduateModal" class="modal">
+                <div id="undergraduate"></div>
+                <div class="myModal" class="modal"></div>
+            
+                <div id="graduate">
+                    <div id="graduateModal">
                         <div class="modal-content">
                             <span class="close">&times;</span>
                         </div>  
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -158,9 +152,9 @@
   <!--<div id="content" style="height:200px"></div> -->
 </body>
 <script>//Modal Script
-    var modal = document.getElementById("myModal");
+    var modal = document.getElementsByClassName("myModal");
 
-    var btn = document.getElementById("myBtn");
+    var btn = document.getElementsByClassName("myBtn");
 
     var span = document.getElementsByClassName("close")[0];
 
