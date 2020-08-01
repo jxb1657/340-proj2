@@ -95,36 +95,36 @@ $(document).ready(function(){
 //========================================================================================================		
 	//get graduate
 	xhr('get', {path: '/degrees/graduate'}, '#graduate').done(function(json){
-		var testTitle="";
+		var graduate="";
 		$.each(json.graduate, function(){
-			testTitle = '<button class="myBtn"><div degree-name ="'+ this.degreeName +'"data-type=graduate"><h3>'+ this.title +'</h3></div></button>';
+			graduate = '<div class="graduate" degree-name ="'+ this.degreeName +'"data-type=graduate"><h3>'+ this.title +'</h3></div>';
 		});
 
-		var z ='';
+		var graduateModal ='';
 		$.each(json.graduate, function(i, item){
 			if(item.availableCertificates === undefined || item.availableCertificates.length == 0){
-				z += '<div class="myModal"><div class="modal" degree-name ="'+ this.degreeName + 
+				graduateModal += '<div class="modal" degree-name ="'+ this.degreeName + 
 				'" data-type = graduate"><h5>'+ item.description +
-				'</h5><p>' + item.concentrations + '</p></div></div>';
+				'</h5><p>' + item.concentrations + '</p></div>';
 			}
 			else{
-				z += '<div degree-name ="'+ this.degreeName + '" data-type = graduate"></br>'+'<h6>' +item.availableCertificates +'</h6></div>';
+				graduateModal += '<div class="modal" degree-name ="'+ this.degreeName + '" data-type = graduate"></br>'+'<h6>' +item.availableCertificates +'</h6></div>';
 			}
 		});
 		// console.log(testTitle);
-		$('#graduate').append(testTitle);
-		$('#graduateModal').append(z);
+		$('#graduate').append(graduate);
+		$('#graduateModal').append(graduateModal);
 
 		// $(window).on('scroll' , function(){
 		// 	$('#graduate').css("left", -$(window).scrollTop());
 		// });
 
-		$('.graduateModal').on('click',function(){
+		$('#graduateModal').on('click',function(){
 			var me = getAttributesByName(json.graduate,'degreeName', $(this).attr('degree-name'));
 			console.log(me);
 		});
 
-		$('.graduate').on('click',function(){
+		$('#graduate').on('click',function(){
 			var me = getAttributesByName(json.graduate,'degreeName', $(this).attr('degree-name'));
 			console.log(me);
 		});
@@ -133,76 +133,44 @@ $(document).ready(function(){
 //========================================================================================================
 	//get undergraduate
 	xhr('get', {path: '/degrees/undergraduate'}, '#undergraduate').done(function(json){
-		//just put out faculty...[staff would be inside of her as well, your problem!]
 		var undergraduateContainer="";
-		var y = '';
+		var undergraduateContent = '';
 
 		$.each(json.undergraduate, function(){
-			undergraduateContainer = '<button class="myBtn"><div class="undergraduate" degree-name="'+this.degreeName+'" data-type = undergraduate"><h3>'+this.title+'</h3></div></button>';
+			undergraduateContainer = '<div class="undergraduate" degree-name="'+this.degreeName+'" data-type = undergraduate"><h3>'+this.title+'</h3></div>';
 		})
 	
 		$.each(json.undergraduate,function(i, item){//go through each person in faculty
-			//build up a big string to place on page
-			//note the class = "faculty" - how we will put an onclick on them all
-			//note the data-uname, how we can access all of the data later on!
-				//username is a unique identifier!
-			y += '<div class="myModal"><div class="undergraduate" degree-name = "'+this.degreeName+
+
+			undergraduateContent += '<div class="undergraduate" degree-name = "'+this.degreeName+
 			'" data-type = undergraduate"><h5>'+item.description+
-			'</h5><p>'+ item.concentrations +'</p></div></div>';
+			'</h5><p>'+ item.concentrations +'</p></div>';
 		})
 		$('#undergraduate').append(undergraduateContainer);
-		$('#undergraduateModal').append(y);
+		$('#undergraduateModal').append(undergraduateContent);
 
-		$('.undergraduate').on('click',function(){
-			//HUGE note - since this is assigned within the callback from the AJAX call
-				//another way to think of it is from here, the code can 'see' the json variable
-			//and when I later click on one of div's with a class of faculty
-			//I can access the entire json object!
-
-			//while that is awesome, I still need to find out within all that data, which one am I?
-			//see: ******
+		$('#undergraduate').on('click',function(){
 			var me = getAttributesByName(json.undergraduate,'degreeName', $(this).attr('degree-name'));
 			console.log(me);
 		});
 	});
-	var modal = document.getElementsByClassName("myModal");
-
-    var btn = document.getElementsByClassName("myBtn");
-
-    var span = document.getElementsByClassName("close")[0];
-
-    btn.onclick = function(){
-        modal.style.display = "block";
-        
-    }
-
-    span.onClick = function(){
-        modal.style.display = "none";
-    }
-
-    window.onclick = function(event){
-        if (event.target == modal){
-            modal.style.display = "none";
-        }
-    }
 
 //========================================================================================================
 	//get minors
 	xhr('get', {path: '/minors/'}, '#minors').done(function(json){
-		var minors1 = '';
-		var minors2 = '';
+		var minorsContainer = '';
+		var minorsContent = '';
 		$.each(json.UgMinors, function(i, item){
 			//get the title screen for the minors
-			minors1 += '<div class = "minorFirst"> <h3>'+this.title+'</h3></div>';
+			minorsContainer += '<div class = "minorFirst"> <h3>'+this.title+'</h3></div>';
 			//get the info screen for the appropriate minor click.
-			minors2 += '<div class = "minorSecond"> <h3>'+this.title+'</h3><h6>'+
+			minorsContent += '<div class = "minorSecond"> <h3>'+this.title+'</h3><h6>'+
 			this.name+'</h6><p>'+this.description+'</p><div>'+item.courses+'</div><p>'+
 			this.note+'</p></div>';
 		})
-		$('.minorFirst').append(minors1);
-		$('.minorSecond').append(minors2);
+		$('.minorFirst').append(minorsContainer);
+		$('.minorSecond').append(minorsContent);
 	})
-
 //========================================================================================================
 	//get employment
 
@@ -210,11 +178,11 @@ $(document).ready(function(){
 	//var dt = require('datatables.net')(window, $);
 	//var buttons = require('datatables.net-buttons/js/buttons.colVis.js')(window, $);
 
-	xhr('get', {path: '/employment/'}, '#employment').done(function(json){
+	xhr('get', {path: '/employment/'}, '.employment').done(function(json){
 		var empIntro = '';
-		var empStat = '';
-		var empEmployers = '';
 		var empCareers = '';
+		var empEmployers = '';
+		var empStat = ''; //degreeStatistics	
 		
 		var empCoopHead = '';
 		var empCoopBody ='';
@@ -252,8 +220,8 @@ $(document).ready(function(){
 		$('.stats').append('<h3>'+json.degreeStatistics.title+'</h3></br>' + empStat);
 
 		//get coopTable
-		//get headers
-		//var headerName = Object.keys(json.coopTable);
+		var coopTableContainer = "";
+		var coopTableContent = "";
 		$.each(json.coopTable.coopInformation[0], function(i, item){
 			empCoopHead += '<th>'+ i +'</th>';
 		})
@@ -264,11 +232,23 @@ $(document).ready(function(){
 			json.coopTable.coopInformation[i].degree+'</td><td>'+ json.coopTable.coopInformation[i].city +'</td><td>'+ 
 			json.coopTable.coopInformation[i].term +'</td></tr>';
 		})
+
+		//=======================Organize CoopTable Content=================
+		coopTableContainer = '<h3>'+json.coopTable.title+'</h3>';
+		coopTableContent = '<div class="coopTable"><div><table id="table_id" class="display"><thead><tr>'+empCoopHead + '</tr></thead><tbody>'+empCoopBody+ '</tbody></table></div></div>';
+		//==================================================================
+
 		//Initializing datatables by calling the table ID and the "DataTable()" function
-		$('.coopTable').append('<div class = "coopTable"><div><table id="table_id" class="display"><h3>'+json.coopTable.title+'</h3></br><thead><tr>' + empCoopHead +'</tr></thead><tbody>'+ empCoopBody + '</tbody></table></div></div>');
+		//$('.coopTable').append('<div class = "coopTable"><div><table id="table_id" class="display"><h3>'+json.coopTable.title+'</h3></br><thead><tr>' + empCoopHead +'</tr></thead><tbody>'+ empCoopBody + '</tbody></table></div></div>');
+
+		$('.coopTableContainer').append(coopTableContainer);
+		$('.coopTableContent').append(coopTableContent);
 		$('#table_id').dataTable();
 
-		//get employmentTabel
+		//get employmentTable
+		var empTableContainer = "";
+		var empTableContent = "";
+
 		//get headers
 		$.each(json.employmentTable.professionalEmploymentInformation[0], function(i, item){
 			empEmpHead += '<th>'+ i +'</th>';
@@ -280,9 +260,18 @@ $(document).ready(function(){
 			json.employmentTable.professionalEmploymentInformation[i].degree+'</td><td>'+ json.employmentTable.professionalEmploymentInformation[i].city +'</td><td>'+ 
 			json.employmentTable.professionalEmploymentInformation[i].title +'</td><td>'+ json.employmentTable.professionalEmploymentInformation[i].startDate +'</td></tr>';
 		})
+		
 		//Initializing datatables by calling the table ID and the "DataTable()" function
-		$('.empTable').append('<div class = "empTable"><div><table id="table_id" class="display"><h3>'+json.employmentTable.title+'</h3></br><thead><tr>' + empEmpHead + '</tr></thead><tbody>'+ empEmpBody + '</tbody></table></div></div>');
-		$('#table_id').dataTable();
+		//$('.empTable').append('<div class = "empTable"><div><table id="table_id" class="display"><h3>'+json.employmentTable.title+'</h3></br><thead><tr>' + empEmpHead + '</tr></thead><tbody>'+ empEmpBody + '</tbody></table></div></div>');
+
+		//=======================Organize CoopTable Content=================
+		empTableContainer = '<h3>'+json.coopTable.title+'</h3>';
+		empTableContent = '<div class="coopTable"><div><table id="table_id" class="display"><thead><tr>'+empEmpHead + '</tr></thead><tbody>'+empEmpBody+ '</tbody></table></div></div>';
+		//==================================================================
+		
+		$('.empTableContainer').append(empTableContainer);
+		$('.empTableContent').append(empTableContent);
+		$('#table_id').dataTable();	
 
 		// //Get Google Maps ("Where Students Work")
 		//++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -429,9 +418,12 @@ $(document).ready(function(){
 		var getInterestTitle = '';
 		var getInterestCitations = '';
 
+		var getInterestContainer = "";
+		var getInterestContent = "";
+
 		$.each(json.byInterestArea, function(i, item){
 			//get the title screen for the AOI
-			getInterestTitle += '<div class = "AOITitle"> <h3>'+this.areaName+'</h3></div>';
+			getInterestContainer += '<div class = "AOITitle"> <h3>'+this.areaName+'</h3></div>';
 
 			//initalize and reset citations list on-call
 			var getAOICitationList = '';
@@ -442,16 +434,20 @@ $(document).ready(function(){
 			for(x=0;x<item.citations.length;x++){
 				getAOICitationList += '<ul><li>' + item.citations[x] + '</li></ul>';
 			}
-			getInterestCitations += '<div class = "AOICitations"> <h3>Research by Domain Area: '+this.areaName+'</h3>'+ getAOICitationList +'</div>';
+			getInterestContent += '<div class = "AOICitations"> <h3>Research by Domain Area: '+this.areaName+'</h3>'+ getAOICitationList +'</div>';
 		})
-		$('#aoi').append(getInterestTitle);
-		//$('#aoi').append(getInterestCitations);
+		$('#aoi').append(getInterestContainer);
+		$('#aoiContent').append(getInterestContent);
+		//$('#aoi').append(getInterestContent);
 	});
 
 	//get FacultyResearch
 	xhr('get', {path: '/research/'}, '#facultyResearch').done(function(json){
 		var getFacultyNames = '';
 		var getFacultyCitations = '';
+
+		var getFacultyContainer =  '';
+		var getFacultyContent = '';
 		
 		// $.each(json.byFaculty, function(i,item){
 		// 	//get list of all citations
@@ -462,7 +458,7 @@ $(document).ready(function(){
 
 		$.each(json.byFaculty, function(i, item){
 			//get the title screen for the faculties
-			getFacultyNames += '<div class = "FacultyTitles"> <h3>'+this.facultyName+'</h3></div>';
+			getFacultyContainer += '<div class = "FacultyTitles"> <h3>'+this.facultyName+'</h3></div>';
 
 			//initialize and reset citations list on-call
 			var getFCitationList = '';
@@ -473,9 +469,10 @@ $(document).ready(function(){
 			for(x=0;x<item.citations.length; x++){
 				getFCitationList += '<ul><li>'+ item.citations[x] +'</li></ul>';
 			}
-			getFacultyCitations += '<div class = "FacultyCitations"> <h3>'+this.facultyName+'</h3>'+ getFCitationList +'</div>';
+			getFacultyContent += '<div class = "FacultyCitations"> <h3>'+this.facultyName+'</h3>'+ getFCitationList +'</div>';
 		})
-		$('#facultyResearch').append(getFacultyNames);
+		$('#facultyResearchContainer').append(getFacultyContainer);
+		$('#faculyyResearchContent').append(getFacultyContent);
 		//$('#facultyResearch').append(getFacultyCitations);
 	});
 
@@ -484,15 +481,34 @@ $(document).ready(function(){
 	//get Resources
 	//Current Students
 	var getResourceTitle ='';
+	var getResourceContainer = '';
+	var getResourceContent = '';
+
+	//Need to add Container/Content
 	var getStudyAbroad = '';
+	var getStudyAbroadContainer = ''
+	var getStudyAbroadContent = ''
+
 	var getStudentServices = '';
+	var getSSContainer = '';
+	var getSSContent ='';
+
 	var getAcademicAdvisors ='';
 	var getProfessionalAdvisors= '';
 	var getFacultyAdvisors = '';
+	//Finished Adding Advisors Content
+	var getAllAdvisorsContent ='';
+
+	//Need to add Container/Content
 	var getISTMinorAdvising = '';
+
+	//Need to add Container/Content
 	var getTutorsandLabInfo = '';
+
 	var getStudentAmbIntro = '';
+
 	//in array subSectionContent
+	//Need to add Container/Content
 	var getStudentAmbMissionStatement = '';
 	var getStudentAmbOverView = '';
 	var getStudentAmbCriteria = '';
@@ -501,9 +517,12 @@ $(document).ready(function(){
 	var getStudentAmbPerks ='';
 	var getStudentAmbApply = '';
 
+	//Need to Add Forms Container/Content
 	var getGradForms = '';
 	var getUnderForms = '';
 
+	//CoopContent
+	//Need to add CoopEnrollment Container/Content
 	var getCoopContent = '';
 	var getCoopEnrollment = '';
 
@@ -540,6 +559,11 @@ $(document).ready(function(){
 		});
 		$('#facultyAdvisors').append(getFacultyAdvisors);
 	});
+
+	//====================Organize Student Advising Services===================
+	getAllAdvisorsContent = getAcademicAdvisors + getProfessionalAdvisors + getFacultyAdvisors;
+	$('.advisorsContent').append(getAllAdvisorsContent);
+	//========================================================================
 
 	//get IST Minor Advising
 	xhr('get',{path: '/resources/'}, '#currentStudents').done( function(json){
@@ -639,6 +663,27 @@ $(document).ready(function(){
 		$('#copyrights').append(getCopyRights);	
 		$("#news").append(getNews);
 	});			
+
+	var modal = document.getElementsByClassName("myModal");
+
+		var btn = document.getElementsByClassName("myBtn");
+	
+		var span = document.getElementsByClassName("close")[0];
+	
+		btn.onclick = function(){
+			modal.style.display = "block";
+			
+		}
+	
+		span.onClick = function(){
+			modal.style.display = "none";
+		}
+	
+		window.onclick = function(event){
+			if (event.target == modal){
+				modal.style.display = "none";
+			}
+		}	
 });
 
 
