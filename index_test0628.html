@@ -8,6 +8,7 @@
   <link rel="stylesheet" href = "assets/section_slider.css">
   <link rel="stylesheet" href = "assets/jquery.progresstracker.css">
   <link rel="stylesheet" type="text/css" href="DataTables/datatables.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <!--<link rel="stylesheet" type="text/css" href="assets/horizontal.css">-->
   <!-- JQuery Library -->
   <script src="https://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
@@ -24,6 +25,8 @@
   <script src="js/jquery.progresstracker.js" type="text/javascript"></script>
   <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
   <script src="js/jquery.progresstracker.min.js" type="text/javascript"></script>
+  <!-- Adding Script for Modal -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <!--Add Browser Detecttion-->
   
   <script>//Browser Detection
@@ -57,7 +60,7 @@
 
         <div id="section2" class="section">
             <div id="ptsection-two" class ="pt-section" data-name="Section Two">
-                <div id="undergraduate">
+                <!-- <div id="undergraduate">
                     <div class="undergraduteModal">
                         <div class="modal-content">
                             <span class="close">&times;</span>
@@ -71,14 +74,78 @@
                             <span class="close">&times;</span>
                         </div>  
                     </div>
+                </div> -->
+                <div class="container">
+                    <button type="button" id="undergraduate" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal0"></button>
+                    
+                    <div class="modal fade" id="modal0" role="dialog">
+                        <div class="model-dialog">
+                            <div class="modal-content">
+                                <div class="modal header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Modal Title</h4>
+                                </div>
+                                
+                                <div class="modal-body">
+                                    <div class="undergraduateModal"></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="container">
+                    <button type="button" id="graduate" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal1"></button>
+                    
+                    <div class="modal fade" id="modal1" role="dialog">
+                        <div class="model-dialog">
+                            <div class="modal-content">
+                                <div class="modal header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Modal Title</h4>
+                                </div>
+                                
+                                <div class="modal-body">
+                                    <div class="graduateModal"></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div id="section3" class="section">
             <div id="ptsection-three" class ="pt-section" data-name="Section Three">
-                <div id="minors" class="minorFirst"></div>
-                <div id="minors" class="minorSecond"></div>
+                <div class="container">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal2">
+                        <div class="minorFirst"></div>
+                    </button>
+                    
+                    <div class="modal fade" id="modal2" role="dialog">
+                        <div class="model-dialog">
+                            <div class="modal-content">
+                                <div class="modal header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Modal Title</h4>
+                                </div>
+                                
+                                <div class="modal-body">
+                                    <div class="minorSecond"></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -90,18 +157,70 @@
                 <div id="employment" class="stats"></div>
             </div>
         </div>
-        
+
         <div id="section5" class="section">
             <div id="ptsection-five" class ="pt-section" data-name="Section Five">
-                <div id="employment" class="empTable"></div>
+                <div class="container">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal3">
+                        <div class="employment">
+                            <div class="coopTableContainer"></div>
+                        </div>
+                    </button>
+                    
+                    <div class="modal fade" id="modal3" role="dialog">
+                        <div class="model-dialog">
+                            <div class="modal-content">
+                                <div class="modal header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Modal Title</h4>
+                                </div>
+                                
+                                <div class="modal-body">
+                                    <div class="employment">
+                                        <div class="coopTableContent"></div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
         <div id="section6" class="section">
             <div id="ptsection-six" class ="pt-section" data-name="Section Six">
-                <div id="employment" class="coopTable"></div>
+                <div class="container">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal3">
+                        <div class="employment">
+                            <div class="empTableContainer"></div>
+                        </div>
+                    </button>
+                    
+                    <div class="modal fade" id="modal3" role="dialog">
+                        <div class="model-dialog">
+                            <div class="modal-content">
+                                <div class="modal header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Modal Title</h4>
+                                </div>
+                                
+                                <div class="modal-body">
+                                    <div class="employment">
+                                        <div class="empTableContent"></div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </div>    
 
         <div id="section7" class="section">
             <div id="ptsection-seven" class ="pt-section" data-name="Section Seven">
@@ -119,13 +238,57 @@
         
         <div id="section9" class="section">
             <div id="ptsection-nine" class ="pt-section" data-name="Section Nine">
-                <div id="aoi"></div>
+                <div class="container">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal3">
+                        <div id="aoi"></div>
+                    </button>
+                    
+                    <div class="modal fade" id="modal3" role="dialog">
+                        <div class="model-dialog">
+                            <div class="modal-content">
+                                <div class="modal header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Modal Title</h4>
+                                </div>
+                                
+                                <div class="modal-body">
+                                    <div id="aoiContent"></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
         <div id="section10" class="section">
             <div id="ptsection-ten" class ="pt-section" data-name="Section Ten">
-                <div id="facultyResearch"></div>
+                <div class="container">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal3">
+                        <div id="facultyResearchContainer"></div>
+                    </button>
+                    
+                    <div class="modal fade" id="modal3" role="dialog">
+                        <div class="model-dialog">
+                            <div class="modal-content">
+                                <div class="modal header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Modal Title</h4>
+                                </div>
+                                
+                                <div class="modal-body">
+                                    <div id="facultyResearchContent"></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -133,13 +296,47 @@
             <div id="ptsection-eleven" class ="pt-section" data-name="Section Eleven">
                 <div id="currentStudents">
                     <div id="studyAbroad" class="horizontal-card"></div>
-                    <div id="academicAdvisors" class="horizontal-card"></div>
-                    <div id="professionalAdvisors" class="horizontal-card"></div>
-                    <div id="facultyAdvisors" class="horizontal-card"></div>
+
+                    <!-- <div class="advisorsContainer">Student Advising Services</div>
+                    <div class="advisorsContent">
+                        <div id="academicAdvisors" class="horizontal-card"></div>
+                        <div id="professionalAdvisors" class="horizontal-card"></div>
+                        <div id="facultyAdvisors" class="horizontal-card"></div>
+                    </div> -->
+
+                    <div class="container">
+                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal4">
+                            <div class="advisorsContainer">Student Advising Services</div>
+                        </button>
+                        
+                        <div class="modal fade" id="modal4" role="dialog">
+                            <div class="model-dialog">
+                                <div class="modal-content">
+                                    <div class="modal header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Modal Title</h4>
+                                    </div>
+                                    
+                                    <div class="modal-body">
+                                        <div class="advisorsContent">
+                                            <div id="academicAdvisors" class="horizontal-card"></div>
+                                            <div id="professionalAdvisors" class="horizontal-card"></div>
+                                            <div id="facultyAdvisors" class="horizontal-card"></div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                     <div id="istMinorAdvising" class="horizontal-card"></div>
                     <div id="tutorsAndLabInfo" class="horizontal-card"></div>
                     <div id="studentAmbassador" class="horizontal-card">Student Ambassador</div>
-                    <div id="forms" class="horizontal-card"></div>  
+                    <div id="forms" class="horizontal-card">Forms</div>  
                     <div id="coopEnrollment" class="horizontal-card"></div>
                 </div>
             </div>
